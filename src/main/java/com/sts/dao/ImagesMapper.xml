@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sts.dao.ImagesMapper" >
+  <resultMap id="BaseResultMap" type="com.sts.model.Images" >
+    <id column="images_id" property="imagesId" jdbcType="INTEGER" />
+    <result column="path1" property="path1" jdbcType="VARCHAR" />
+    <result column="path2" property="path2" jdbcType="VARCHAR" />
+    <result column="path3" property="path3" jdbcType="VARCHAR" />
+    <result column="path4" property="path4" jdbcType="VARCHAR" />
+    <result column="path5" property="path5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    images_id, path1, path2, path3, path4, path5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sts.model.ImagesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from images
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from images
+    where images_id = #{imagesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from images
+    where images_id = #{imagesId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sts.model.ImagesExample" >
+    delete from images
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sts.model.Images" >
+    insert into images (images_id, path1, path2, 
+      path3, path4, path5
+      )
+    values (#{imagesId,jdbcType=INTEGER}, #{path1,jdbcType=VARCHAR}, #{path2,jdbcType=VARCHAR}, 
+      #{path3,jdbcType=VARCHAR}, #{path4,jdbcType=VARCHAR}, #{path5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sts.model.Images" >
+    insert into images
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imagesId != null" >
+        images_id,
+      </if>
+      <if test="path1 != null" >
+        path1,
+      </if>
+      <if test="path2 != null" >
+        path2,
+      </if>
+      <if test="path3 != null" >
+        path3,
+      </if>
+      <if test="path4 != null" >
+        path4,
+      </if>
+      <if test="path5 != null" >
+        path5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imagesId != null" >
+        #{imagesId,jdbcType=INTEGER},
+      </if>
+      <if test="path1 != null" >
+        #{path1,jdbcType=VARCHAR},
+      </if>
+      <if test="path2 != null" >
+        #{path2,jdbcType=VARCHAR},
+      </if>
+      <if test="path3 != null" >
+        #{path3,jdbcType=VARCHAR},
+      </if>
+      <if test="path4 != null" >
+        #{path4,jdbcType=VARCHAR},
+      </if>
+      <if test="path5 != null" >
+        #{path5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sts.model.ImagesExample" resultType="java.lang.Integer" >
+    select count(*) from images
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update images
+    <set >
+      <if test="record.imagesId != null" >
+        images_id = #{record.imagesId,jdbcType=INTEGER},
+      </if>
+      <if test="record.path1 != null" >
+        path1 = #{record.path1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path2 != null" >
+        path2 = #{record.path2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path3 != null" >
+        path3 = #{record.path3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path4 != null" >
+        path4 = #{record.path4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path5 != null" >
+        path5 = #{record.path5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update images
+    set images_id = #{record.imagesId,jdbcType=INTEGER},
+      path1 = #{record.path1,jdbcType=VARCHAR},
+      path2 = #{record.path2,jdbcType=VARCHAR},
+      path3 = #{record.path3,jdbcType=VARCHAR},
+      path4 = #{record.path4,jdbcType=VARCHAR},
+      path5 = #{record.path5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sts.model.Images" >
+    update images
+    <set >
+      <if test="path1 != null" >
+        path1 = #{path1,jdbcType=VARCHAR},
+      </if>
+      <if test="path2 != null" >
+        path2 = #{path2,jdbcType=VARCHAR},
+      </if>
+      <if test="path3 != null" >
+        path3 = #{path3,jdbcType=VARCHAR},
+      </if>
+      <if test="path4 != null" >
+        path4 = #{path4,jdbcType=VARCHAR},
+      </if>
+      <if test="path5 != null" >
+        path5 = #{path5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where images_id = #{imagesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sts.model.Images" >
+    update images
+    set path1 = #{path1,jdbcType=VARCHAR},
+      path2 = #{path2,jdbcType=VARCHAR},
+      path3 = #{path3,jdbcType=VARCHAR},
+      path4 = #{path4,jdbcType=VARCHAR},
+      path5 = #{path5,jdbcType=VARCHAR}
+    where images_id = #{imagesId,jdbcType=INTEGER}
+  </update>
+</mapper>

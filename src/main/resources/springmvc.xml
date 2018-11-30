@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd ">
+	
+	<!-- 配置扫描器，将所有bean装载到spring容器中 -->
+	<context:component-scan base-package="com.sts"/>
+	
+	<!-- 开启注解驱动配置适配器等 -->
+	<mvc:annotation-driven/>
+	<mvc:annotation-driven conversion-service="formatConversionFactory"/>
+	
+	<!-- 配置不拦截静态资源 -->
+	<!-- <mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/fonts/" mapping="/fonts/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/> -->
+	
+	<!-- 配置转换器 (可以配置多个，本次配置的是时间类型的)-->
+	<bean name="formatConversionFactory" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.sts.conversion.DateConverter"></bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- 配置视图解析，直接设置跳转路径的前缀和后缀，减轻代码量 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+</beans>
