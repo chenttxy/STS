@@ -1,4 +1,4 @@
-package com.sts.model;
+package com.sts.pojo;
 
 public class Category {
     private Integer categoryId;

@@ -1,4 +1,4 @@
-package com.sts.model;
+package com.sts.pojo;
 
 import java.util.Date;
 
@@ -11,9 +11,9 @@ public class Orders {
 
     private Integer sellerId;
 
-    private Integer buynum;
+    private Integer orderStatus;
 
-    private Double totalprice;
+    private Double orderPrice;
 
     private Date createTime;
 
@@ -57,23 +57,23 @@ public class Orders {
         this.sellerId = sellerId;
     }
 
-    public Integer getBuynum() {
-        return buynum;
-    }
+    public Integer getOrderStatus() {
+		return orderStatus;
+	}
 
-    public void setBuynum(Integer buynum) {
-        this.buynum = buynum;
-    }
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 
-    public Double getTotalprice() {
-        return totalprice;
-    }
+	public Double getOrderPrice() {
+		return orderPrice;
+	}
 
-    public void setTotalprice(Double totalprice) {
-        this.totalprice = totalprice;
-    }
+	public void setOrderPrice(Double orderPrice) {
+		this.orderPrice = orderPrice;
+	}
 
-    public Date getCreateTime() {
+	public Date getCreateTime() {
         return createTime;
     }
 

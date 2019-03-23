@@ -1,4 +1,6 @@
-package com.sts.model;
+package com.sts.pojo;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class Images {
     private Integer imagesId;
@@ -12,8 +14,18 @@ public class Images {
     private String path4;
 
     private String path5;
+    
+    private MultipartFile file;
 
-    public Integer getImagesId() {
+    public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+	public Integer getImagesId() {
         return imagesId;
     }
 

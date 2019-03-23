@@ -1,30 +1,21 @@
 package com.sts.dao;
 
-import com.sts.model.User;
-import com.sts.model.UserExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.sts.pojo.User;
 
 public interface UserMapper {
-    int countByExample(UserExample example);
 
-    int deleteByExample(UserExample example);
-
-    int deleteByPrimaryKey(Integer userId);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    List<User> selectByExample(UserExample example);
-
-    User selectByPrimaryKey(Integer userId);
-
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+    //验证用户名是否存在
+	Integer checkUsername(String username);
+	
+	//验证用户手机是否被注册
+	Integer checkPhoneNum(String telephone);
+	
+	//用户登录
+	User login(User u);
+	
+	/**
+	 * 用户注册
+	 */
+	Integer saveUser(User u);
+	
 }

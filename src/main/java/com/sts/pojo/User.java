@@ -1,4 +1,4 @@
-package com.sts.model;
+package com.sts.pojo;
 
 public class User {
     private Integer userId;
@@ -60,4 +60,10 @@ public class User {
     public void setUserStatus(Integer userStatus) {
         this.userStatus = userStatus;
     }
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userName=" + userName + ", userPhone=" + userPhone + ", userPwd=" + userPwd
+				+ ", userCredit=" + userCredit + ", userStatus=" + userStatus + "]";
+	}
 }

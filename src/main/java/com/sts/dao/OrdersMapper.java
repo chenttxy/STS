@@ -1,30 +1,21 @@
 package com.sts.dao;
 
-import com.sts.model.Orders;
-import com.sts.model.OrdersExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.sts.pojo.Orders;
 
+/**
+ * 
+ * @ClassName: OrdersMapper.java
+ * @Description: 订单相关方法
+ * @author chentongtong
+ * @date: 2019年3月23日 下午8:34:06
+ */
 public interface OrdersMapper {
-    int countByExample(OrdersExample example);
-
-    int deleteByExample(OrdersExample example);
-
-    int deleteByPrimaryKey(String orderId);
-
-    int insert(Orders record);
-
-    int insertSelective(Orders record);
-
-    List<Orders> selectByExample(OrdersExample example);
-
-    Orders selectByPrimaryKey(String orderId);
-
-    int updateByExampleSelective(@Param("record") Orders record, @Param("example") OrdersExample example);
-
-    int updateByExample(@Param("record") Orders record, @Param("example") OrdersExample example);
-
-    int updateByPrimaryKeySelective(Orders record);
-
-    int updateByPrimaryKey(Orders record);
+	
+	/**
+	 * 当用户点击结算后生成的初始订单
+	 * @param order
+	 * @return
+	 */
+	Integer createOrder(Orders order);
+    
 }

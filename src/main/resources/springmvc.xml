@@ -6,7 +6,7 @@
 	
 	<!-- 开启注解驱动配置适配器等 -->
 	<mvc:annotation-driven/>
-	<mvc:annotation-driven conversion-service="formatConversionFactory"/>
+	<!-- <mvc:annotation-driven conversion-service="formatConversionFactory"/> -->
 	
 	<!-- 配置不拦截静态资源 -->
 	<!-- <mvc:resources location="/css/" mapping="/css/**"/>
@@ -14,13 +14,13 @@
 	<mvc:resources location="/js/" mapping="/js/**"/> -->
 	
 	<!-- 配置转换器 (可以配置多个，本次配置的是时间类型的)-->
-	<bean name="formatConversionFactory" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	<!-- <bean name="formatConversionFactory" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<property name="converters">
 			<list>
 				<bean class="com.sts.conversion.DateConverter"></bean>
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 	
 	
 	<!-- 配置视图解析，直接设置跳转路径的前缀和后缀，减轻代码量 -->
@@ -28,5 +28,14 @@
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
+	<!-- 上传文件需要用到的配置 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+	    <property name="defaultEncoding" value="utf-8"/>  
+	    <!-- 最大内存大小 -->  
+	    <property name="maxInMemorySize" value="10240"/>  
+	    <!-- 最大文件大小，-1为不限制大小 -->  
+	    <property name="maxUploadSize" value="-1"/>  
+    </bean>
 	
 </beans>

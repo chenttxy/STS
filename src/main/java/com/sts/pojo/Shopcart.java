@@ -1,4 +1,4 @@
-package com.sts.model;
+package com.sts.pojo;
 
 public class Shopcart {
     private Integer shopcartId;
