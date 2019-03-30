@@ -12,4 +12,24 @@
     shopcart_id, buyNum, good_id, user_id
   </sql>
   
+  <insert id="addShopcart" parameterType="com.sts.pojo.Shopcart">
+  	insert into shopcart (shopcart_id, buyNum, good_id, 
+      user_id)
+    values (#{shopcartId,jdbcType=INTEGER}, #{buynum,jdbcType=INTEGER}, #{goodId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER})
+  </insert>
+  
+  <select id="queryIsExist" parameterType="com.sts.pojo.Shopcart" resultType="java.lang.Integer">
+  	select count(*) from shopcart a 
+  		where 
+  	a.good_id = #{goodId}
+  	and a.user_id = #{userId}
+  </select>
+  
+  <delete id="deleteShopcart" parameterType="com.sts.pojo.Shopcart">
+  	delete from shopcart 
+  	where 
+  		good_id = #{goodId}
+  		and user_id = #{userId}
+  </delete>
 </mapper>

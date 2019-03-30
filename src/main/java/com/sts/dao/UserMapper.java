@@ -18,4 +18,19 @@ public interface UserMapper {
 	 */
 	Integer saveUser(User u);
 	
+	/**
+	 * 用户修改个人信息时验证原密码
+	 * @param userId
+	 * @param userPwd
+	 * @return
+	 */
+	Integer checkOldPwd(User user);
+
+	/**
+	 * 根据用户ID查询用户信息
+	 * @param userId
+	 * @return
+	 */
+	User queryByUid(Integer userId);
+	
 }

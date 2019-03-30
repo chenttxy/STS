@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.sts.pojo.Product" >
     <id column="good_id" property="goodId" jdbcType="INTEGER" />
     <result column="good_name" property="goodName" jdbcType="VARCHAR" />
-    <result column="good_num" property="goodNum" jdbcType="INTEGER" />
+    <result column="good_type" property="goodType" jdbcType="INTEGER" />
     <result column="good_price" property="goodPrice" jdbcType="DOUBLE" />
     <result column="good_describe" property="goodDescribe" jdbcType="VARCHAR" />
     <result column="good_image" property="goodImage" jdbcType="VARCHAR" />
@@ -13,11 +13,12 @@
     <result column="good_status" property="goodStatus" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="end_time" property="endTime"/>
   </resultMap>
   
   <sql id="baseColumn">
-  		good_id, good_name, good_num, good_price, good_describe, good_image, good_time, good_click, 
-    	good_status, user_id, category_id
+  		good_id, good_name, good_type, good_price, good_describe, good_image, good_time, good_click, 
+    	good_status, user_id, category_id, end_time
   </sql>
   
   <select id="queryListByTime" resultMap="BaseResultMap">
@@ -25,6 +26,7 @@
   		<include refid="baseColumn"/>
   	from product a 
   	where a.good_status = 1
+  	and a.good_type = 1
   	order by a.good_time desc
   </select>
   
@@ -34,6 +36,7 @@
   	from product a 
   	where a.category_id = #{cid} 
   		and a.good_status = 1
+  		and a.good_type = 1
   	order by a.good_click desc
   </select>
   
@@ -42,6 +45,7 @@
   		<include refid="baseColumn"/>
   	from product a where a.good_name like concat('%', #{goodName}, '%') 
   	and a.good_status = 1
+  	and a.good_type = 1
   	order by a.good_click desc
    </select>
    
@@ -69,4 +73,36 @@
   	where 
   		a.good_id = #{goodId}
   </update>
+  
+  <insert id="saveProduct" parameterType="com.sts.pojo.Product" >
+    insert into product (good_id, good_name, 
+      good_price, good_describe, good_image, 
+      user_id, category_id, good_type, end_time)
+    values (#{goodId,jdbcType=INTEGER}, #{goodName,jdbcType=VARCHAR}, 
+      #{goodPrice,jdbcType=DOUBLE}, #{goodDescribe,jdbcType=VARCHAR}, #{goodImage,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER},
+      #{goodType}, #{endTime})
+  </insert>
+  
+  <select id="queryPublishByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+  		<include refid="baseColumn"/>
+  	from product a where a.user_id = #{userId}
+  </select>
+  
+  <update id="updateGoodClick">
+  	update product a set a.good_click = a.good_click + 1 
+  	where a.good_id = #{goodId}
+  </update>
+  
+  <select id="queryListByType" resultMap="BaseResultMap">
+  	select 
+  		<include refid="baseColumn"/>
+  	from product a 
+  	where 
+	  	a.good_type = 2
+	  	and a.good_status = 1 
+	  	order by a.good_click desc
+  </select>
+  
 </mapper>

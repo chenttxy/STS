@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sts.dao.ProductMapper;
+import com.sts.dao.UserMapper;
 import com.sts.pojo.Product;
+import com.sts.pojo.User;
 import com.sts.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -14,10 +16,18 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductMapper productMapper;
 	
-	/*@Override
-	public void saveProduct(Product product) {
-		productMapper.insert(product);
-	}*/
+	@Autowired
+	UserMapper userMapper;
+	
+	@Override
+	public boolean saveProduct(Product product) {
+		int n = 0;
+		n = productMapper.saveProduct(product);
+		if(n > 0){
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public List<Product> queryListByTime() {
@@ -26,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product queryInfo(String goodId) {
-		// TODO Auto-generated method stub
+		productMapper.updateGoodClick(goodId);
 		return productMapper.queryByGoodId(goodId);
 	}
 
@@ -38,6 +48,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> queryListByName(String goodName) {
 		return productMapper.queryListByName(goodName);
+	}
+
+	@Override
+	public List<Product> queryListByType() {
+		return productMapper.queryListByType();
 	}
 
 }

@@ -1,3 +1,4 @@
+<%@page import="com.sts.pojo.User"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="../../taglibs.jsp" %>
 <%
@@ -23,9 +24,21 @@
 
     <style>
         .container{padding-top:10px}
+        .others ~ div[class='endTime'] {
+		    display:none;
+		}
+		.others:checked ~ div[class='endTime'] {
+		    display:inline;
+		}
     </style>
 </head>
 <body>
+<%
+	User user = (User)session.getAttribute("cur_user");
+	if(user == null){
+		response.sendRedirect(basePath+"loginView.action");
+	}
+%>
 <div class="pre-2" id="big_img">
     <img src="http://findfun.oss-cn-shanghai.aliyuncs.com/images/head_loading.gif" class="jcrop-preview jcrop_preview_s">
 </div>
@@ -50,77 +63,36 @@
                 <div class="big_headimg">
                     <img src="">
                 </div>
-                <span class="name">${cur_user.userName}</span>
+                <span class="name">用户名：${cur_user.userName}</span>
+                <span class="name">信用积分：${cur_user.userCredit}</span>
                 <span class="school">武汉商学院</span>
-                <span class="name">闲置数量：${cur_user.userPhone}</span>
-            </div>
-            <div class="home_nav">
-                <ul>
-                    <a href="">
-                        <li class="notice">
-                            <div></div>
-                            <span>我的消息</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                    <a href="">
-                        <li class="fri">
-                            <div></div>
-                            <span>关注列表</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                    <a href="/user/basic">
-                        <li class="set">
-                            <div></div>
-                            <span>个人设置</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                    <a href="/goods/publishGoods">
-                        <li class="store">
-                            <div></div>
-                            <span>发布物品</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                    <a href="/user/allGoods">
-                        <li class="second">
-                            <div></div>
-                            <span>我的闲置</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                </ul>
             </div>
         </div>
         <!--
-	            作者：hlk_1135@outlook.com
-	            时间：2017-05-10
 	            描述：发布物品
         -->
         <div id="user_content">
             <div class="basic">
-                <form:form action="/goods/publishGoodsSubmit" method="post" role="form" enctype="multipart/form-data">
+                <form:form action="${path }/product/productUpload.action" method="post" role="form" enctype="multipart/form-data">
                     <h1 style="margin-left: 210px;">发布物品</h1><hr />
                     <div class="changeinfo">
                         <span>物品名：</span>
-                        <input class="in_info" type="text" name="name" placeholder="请输入物品名"/>
+                        <input class="in_info" type="text" name="goodName" placeholder="请输入物品名"/>
                         <span>(*必填)</span>
                     </div>
                     <div class="changeinfo">
                         <span>出售价格：</span>
-                        <input class="in_info" type="text" name="price" placeholder="请输入出售价格"/>
+                        <input class="in_info" type="text" name="goodPrice" placeholder="请输入出售价格"/>
                         <span>(*必填)</span>
                     </div>
-                    <div class="changeinfo">
+                    <!-- <div class="changeinfo">
                         <span>原价：</span>
                         <input class="in_info" type="text" name="realPrice" placeholder="请输入商品原价"/>
                         <span id="checkphone">(*选填,请如实填写)</span>
-                    </div>
+                    </div> -->
                     <div class="changeinfo">
                         <span>物品类别：</span>
-                        <select class="in_info" name="catelogId">
+                        <select class="in_info" name="categoryId">
                             <option value="1">闲置数码</option>
                             <option value="2">校园代步</option>
                             <option value="3">电器日用</option>
@@ -136,7 +108,7 @@
                             <div class="publ">
                                 <div class="pub_con">
                                     <div class="text_pu">
-                                        <input type="text" name="describle" class="emoji-wysiwyg-editor"/>
+                                        <input type="text" name="goodDescribe" class="emoji-wysiwyg-editor"/>
                                     </div>
                                 </div>
                             </div>
@@ -151,21 +123,32 @@
                                 <div class="col-sm-6 col-sm-offset-1">
                                     <div class="form-group">
                                         <div class="col-sm-10">
-                                            <input type="file" name="myfile" data-ref="imgUrl" class="col-sm-10 myfile" value=""/>
-                                            <input type="hidden" name="imgUrl" value="">
+                                            <!-- <input type="file" name="myfile" data-ref="imgUrl" class="col-sm-10 myfile" value=""/>
+                                            <input type="hidden" name="imgUrl" value=""> -->
+                                            <input type="file" class="col-sm-10 myfile" name="file">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- 选择是否是拍卖商品 -->
+                    	是否拍卖商品：
+                    <input type="radio" name="goodType" value='2' class="others" >是
+					<input type="radio" name="goodType" value='1'>否
+					<br><br>
+					<div class="endTime">
+						拍卖结束时间：
+					    <input type="datetime-local" name="endTime">
+					</div>
+					<br><br>
                     <input type="submit" class="setting-save" value="发布物品" style="margin-top: 20px;background-color: blue;"/>
                 </form:form>
             </div>
         </div>
     </div>
 </div>
-<script>
+<%-- <script>
     $(".myfile").fileinput({
         uploadUrl:"<%=basePath%>goods/uploadFile",//上传的地址
         uploadAsync:true, //默认异步上传
@@ -218,6 +201,6 @@
     $('.myfile').on('filepreupload', function(event, data, previewId, index) {
         console.log("filepreupload");
     });
-</script>
+</script> --%>
 </body>
 </html>

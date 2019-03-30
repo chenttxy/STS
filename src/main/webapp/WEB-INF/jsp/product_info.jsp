@@ -14,6 +14,34 @@
     <link rel="stylesheet" href="${path }/css/materialize-icon.css" />
     <link rel="stylesheet" href="${path }/css/user.css" />
     <link rel="stylesheet" href="${path }/css/detail.css" />
+<script type="text/javascript">
+	function addShopcart(){
+		$.ajax({
+			type: "get",
+			url:'${path }/shopcart/addShopcart.action?goodId=${product.goodId}',
+			dataType:"json",
+			async:false,
+			error:function(){
+		        alert('出错！')
+		    },
+		    success:function(data){
+		    	if(data.flag1){
+		    		alert("已经存在购物车中，请不要重复添加!")
+		    	}else{
+		    		if(data.flag){
+						alert("添加成功！")
+					} else{
+						alert("添加失败！")
+					}
+		    	}
+		    },
+		});
+	}
+	
+	function tipMessage(){
+		alert("请先登录！")
+	}
+</script>
 <body ng-view="ng-view">
 <!--
     描述：顶部
@@ -40,10 +68,10 @@
             <ul class="right">
                 <c:if test="${empty cur_user}">
                     <li class="publish-btn">
-                        <button ng-click="showLogin()" data-position="bottom" data-delay="50"
-                        		data-toggle="popover" title="弹出框标题" data-content="弹出框内容"
-                                data-tooltip="需要先登录哦！" class="red lighten-1 waves-effect waves-light btn" data-tooltip-id="510d3084-e666-f82f-3655-5eae4304a83a"	>
-                            我要发布</button>
+                        <button class="red lighten-1 waves-effect waves-light btn" 
+                        	onclick="tipMessage()">
+                          	我要发布
+                         </button>
                     </li>
                 </c:if>
                 <c:if test="${!empty cur_user}">
@@ -52,15 +80,14 @@
                             <a href="${path }/product/productPub.action">我要发布</a>
                         </button>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="/user/allGoods">我发布的商品</a>
+                    </li> -->
+                    <li>
+                        <a href="${path }/user/userHome.action">用户名:${cur_user.userName}</a>
                     </li>
                     <li>
-                        <a>${cur_user.userName}</a>
-                    </li>
-                    <li class="notification">
-                        <i ng-click="showNotificationBox()" class="iconfont"></i>
-                        <div ng-show="notification.tagIsShow" class="notification-amount red lighten-1 ng-binding ng-hide">0 </div>
+                        <a>信用积分:${cur_user.userCredit }</a>
                     </li>
                     <li class="changemore">
                         <a class="changeMoreVertShow()">
@@ -68,10 +95,10 @@
                         </a>
                         <div class="more-vert">
                             <ul class="dropdown-content">
-                                <li><a href="/user/home">个人中心</a></li>
-                                <li><a>消息</a></li>
-                                <li><a onclick="ChangeName()">更改用户名</a></li>
-                                <li><a href="/user/logout">退出登录</a></li>
+                                <li><a href="${path }/shopcart/shopcartList.action">购物车</a></li>
+                                <li><a href="${path }/shopcart/shopcartList.action">我的闲置</a></li>
+                                <li><a onclick="ChangeName()">我的订单</a></li>
+                                <li><a href="${path }/user/loginOut.action">退出登录</a></li>
                             </ul>
                         </div>
                     </li>
@@ -99,7 +126,7 @@
     <div class="col s6">
         <div class="slider" style="height: 440px;">
             <ul class="slides" style="height: 400px;">
-                <img src="#"/>
+                <img src="/imgUrl/${product.goodImage}"/>
             </ul>
             <ul class="indicators">
                 <li class="indicator-item"></li>
@@ -125,40 +152,36 @@
         <c:if test="${empty cur_user}">
             <div class="item-contact">
                 <p class="not-login">
-                    <a onclick="showLogin()">登录</a>
+                    <a href="${path }/loginView.action">登录</a>
                     <em>或</em>
-                    <a onclick="showSignup()">注册</a>
+                    <a href="${path }/registerView.action">注册</a>
                     <em>后查看联系信息</em>
                 </p>
             </div>
         </c:if>
         <c:if test="${!empty cur_user}">
             <div class="item-contact">
+            	<div>
+                    <div class="base-blue z-depth-1 attr">
+                        <i class="iconfont"><img src="${path }/img/xinyong.png"></i>
+                    </div>
+                    <div class="value">${seller.userCredit}</div>
+                </div>
                 <div>
                     <div class="base-blue z-depth-1 attr">
                         <i class="iconfont"></i>
                     </div>
-                    <div class="value">${seller.username}</div>
+                    <div class="value">${seller.userName}</div>
                 </div>
                 <div>
                     <div class="base-blue z-depth-1 attr">
                         <i class="iconfont"></i>
                     </div>
-                    <div class="value">${seller.phone}</div>
-                </div>
-                <div>
-                    <div class="base-blue z-depth-1 attr">
-                        <i class="iconfont"></i>
-                    </div>
-                    <div class="value">${seller.qq}</div>
-                </div>
-                <div>
-                    <div class="base-blue z-depth-1 attr">
-                        <i class="iconfont"></i>
-                    </div>
-                    <div class="value"></div>
+                    <div class="value">${seller.userPhone}</div>
                 </div>
             </div>
+            <h3><a onclick="addShopcart()" style="cursor:pointer;">加购物车</a></h3><br><br>
+       		<h3><a href="${path }/orders/createOrder.action?goodId=${product.goodId}">购买</a></h3>
         </c:if>
         <h1 class="item-pub-time">发布于 <fmt:formatDate value="${product.goodTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h1>
     </div>

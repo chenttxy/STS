@@ -9,26 +9,55 @@
     <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
     <result column="order_price" property="orderPrice" jdbcType="DOUBLE" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="meet_time" property="meetTime" jdbcType="TIMESTAMP" />
+    <result column="meet_time" property="meetTime" />
     <result column="meet_address" property="meetAddress" jdbcType="VARCHAR" />
     <result column="evaluation_info" property="evaluationInfo" jdbcType="VARCHAR" />
     <result column="evaluation_grade" property="evaluationGrade" jdbcType="INTEGER" />
   </resultMap>
   
   <sql id="baseColumn" >
-    order_id, user_id, good_id, seller_id, buyNum, totalPrice, create_time, meet_time, 
+    order_id, user_id, good_id, seller_id, order_status, order_price, create_time, meet_time, 
     meet_address, evaluation_info, evaluation_grade
   </sql>
   
-  <insert id="createOrder" parameterType="com.sts.pojo.Orders">
+  <insert id="createOrder" parameterType="com.sts.pojo.Orders" >
   	insert into orders (order_id, user_id, good_id, 
       seller_id, order_status, order_price, 
       create_time, meet_time, meet_address, 
       evaluation_info, evaluation_grade)
     values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{goodId,jdbcType=INTEGER}, 
       #{sellerId,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, #{orderPrice,jdbcType=DOUBLE}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{meetTime,jdbcType=TIMESTAMP}, #{meetAddress,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{meetTime}, #{meetAddress,jdbcType=VARCHAR}, 
       #{evaluationInfo,jdbcType=VARCHAR}, #{evaluationGrade,jdbcType=INTEGER})
   </insert>
+  
+  <select id="queryOrderById" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+  		<include refid="baseColumn"/>
+  	from orders a 
+  	where a.order_id = #{orderId}
+  </select>
+  
+  <update id="ordersMapper" parameterType="com.sts.pojo.Orders">
+  	update orders a set 
+	  	a.meet_time = #{meetTime},
+	  	a.meet_address = #{meetAddress},
+	  	a.order_status = #{orderStatus}
+  	where a.order_id = #{orderId}
+  </update>
+  
+  <select id="queryListByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+  		<include refid="baseColumn"/>
+  	from orders a where a.user_id = #{userId}
+  </select>
+  
+  <update id="orderEvaluation" parameterType="com.sts.pojo.Orders">
+  	update orders a set 
+	  	a.evaluation_info = #{evaluationInfo},
+	  	a.evaluation_grade = #{evaluationGrade},
+	  	a.order_status = #{orderStatus}
+  	where a.order_id = #{orderId}
+  </update>
   
 </mapper>

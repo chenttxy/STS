@@ -66,7 +66,7 @@ public class Demo {
 	 */
 	@Test
 	public void createOrder(){
-		boolean createOrder = orderService.createOrder(2, String.valueOf(9));
+		String createOrder = orderService.createOrder(2, String.valueOf(1));
 		System.out.println(createOrder+"==========");
 	}
 	

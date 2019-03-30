@@ -112,4 +112,12 @@ public class Orders {
     public void setEvaluationGrade(Integer evaluationGrade) {
         this.evaluationGrade = evaluationGrade;
     }
+
+	@Override
+	public String toString() {
+		return "Orders [orderId=" + orderId + ", userId=" + userId + ", goodId=" + goodId + ", sellerId=" + sellerId
+				+ ", orderStatus=" + orderStatus + ", orderPrice=" + orderPrice + ", createTime=" + createTime
+				+ ", meetTime=" + meetTime + ", meetAddress=" + meetAddress + ", evaluationInfo=" + evaluationInfo
+				+ ", evaluationGrade=" + evaluationGrade + "]";
+	}
 }

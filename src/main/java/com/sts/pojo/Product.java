@@ -1,7 +1,6 @@
 package com.sts.pojo;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,7 +9,7 @@ public class Product {
 
     private String goodName;
 
-    private Integer goodNum;
+    private Integer goodType;
 
     private Double goodPrice;
 
@@ -29,6 +28,24 @@ public class Product {
     private Integer categoryId;
     
     private MultipartFile file;
+    
+    private Date endTime;
+
+	public Integer getGoodType() {
+		return goodType;
+	}
+
+	public void setGoodType(Integer goodType) {
+		this.goodType = goodType;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
 
 	public MultipartFile getFile() {
 		return file;
@@ -52,14 +69,6 @@ public class Product {
 
     public void setGoodName(String goodName) {
         this.goodName = goodName == null ? null : goodName.trim();
-    }
-
-    public Integer getGoodNum() {
-        return goodNum;
-    }
-
-    public void setGoodNum(Integer goodNum) {
-        this.goodNum = goodNum;
     }
 
     public Double getGoodPrice() {
@@ -125,4 +134,13 @@ public class Product {
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
+
+	@Override
+	public String toString() {
+		return "Product [goodId=" + goodId + ", goodName=" + goodName + ", goodType=" + goodType + ", goodPrice="
+				+ goodPrice + ", goodDescribe=" + goodDescribe + ", goodImage=" + goodImage + ", goodTime=" + goodTime
+				+ ", goodClick=" + goodClick + ", goodStatus=" + goodStatus + ", userId=" + userId + ", categoryId="
+				+ categoryId + ", file=" + file + ", endTime=" + endTime + "]";
+	}
+    
 }

@@ -3,10 +3,8 @@ package com.sts.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +18,6 @@ import com.sts.pojo.Product;
 import com.sts.pojo.User;
 import com.sts.service.ProductService;
 import com.sts.service.UserService;
-import com.sts.utils.GetMessage;
 
 @Controller
 @RequestMapping(value="/user/")
@@ -47,7 +44,7 @@ public class UserController {
 		if(user != null){
 			rq.getSession().setAttribute("cur_user", user);
 			
-			return "main";
+			return "index";
 		}
 		return "login";
 	}
@@ -102,8 +99,58 @@ public class UserController {
 	}
 	
 	@RequestMapping("userHome")
-	public String userHome(){
+	public String userHome(@RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo,
+							Model model, HttpServletRequest rq){
+		
+		//根据cid查找商品分类名称
+		
+		Integer pageSize = 6;//每页显示记录数
+        //分页查询
+        PageHelper.startPage(pageNo, pageSize);
+        
+        User u = new User();
+        u = (User) rq.getSession().getAttribute("cur_user");
+        
+    	//根据cid查找该类下的商品列表
+        List<Product> productList = userService.queryPublishByUid(u.getUserId());
+        
+        PageInfo<Product> pageInfo = new PageInfo<Product>(productList);
+        
+        model.addAttribute("pageInfo", pageInfo);
 		
 		return "user_home";
+	}
+	
+	@RequestMapping("loginOut")
+	public String loginOut(HttpServletRequest rq){
+		rq.getSession().removeAttribute("cur_user");
+		return "index";
+	}
+	
+	@RequestMapping("checkOldPwd")
+	public void checkOldPwd(String userPwd, HttpServletResponse response, HttpServletRequest request){
+		
+		User u = new User();
+		u = (User) request.getSession().getAttribute("cur_user");
+		
+		User user = new User();
+		user.setUserId(u.getUserId());
+		user.setUserPwd(userPwd);
+		
+		boolean flag = userService.checkOldPwd(user);
+		
+		System.out.println(flag+"=============");
+		String json = "{\"flag\":"+flag+"}";
+		try {
+			response.getWriter().write(json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("updateView")
+	public String updateView(){
+		
+		return "user_update";
 	}
 }

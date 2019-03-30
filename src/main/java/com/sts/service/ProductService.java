@@ -16,4 +16,8 @@ public interface ProductService {
 	
 	List<Product> queryListByName(String goodName);
 	
+	boolean saveProduct(Product product);
+	
+	List<Product> queryListByType();
+	
 }

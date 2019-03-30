@@ -13,6 +13,12 @@
     <script type="text/javascript" src="${path }/js/index.bundle.js" ></script>
     <link rel="stylesheet" href="${path }/css/materialize-icon.css" />
     <link rel="stylesheet" href="${path }/css/user.css" />
+   
+<script type="text/javascript">
+function tipMessage(){
+	alert("请先登录！")
+}
+</script>
 <body ng-view="ng-view">
 <!--
     描述：顶部
@@ -39,10 +45,10 @@
             <ul class="right">
                 <c:if test="${empty cur_user}">
                     <li class="publish-btn">
-                        <button ng-click="showLogin()" data-position="bottom" data-delay="50"
-                        		data-toggle="popover" title="弹出框标题" data-content="弹出框内容"
-                                data-tooltip="需要先登录哦！" class="red lighten-1 waves-effect waves-light btn" data-tooltip-id="510d3084-e666-f82f-3655-5eae4304a83a"	>
-                            我要发布</button>
+                        <button class="red lighten-1 waves-effect waves-light btn" 
+                        	onclick="tipMessage()">
+                          	我要发布
+                         </button>
                     </li>
                 </c:if>
                 <c:if test="${!empty cur_user}">
@@ -51,17 +57,12 @@
                             <a href="${path }/product/productPub.action">我要发布</a>
                         </button>
                     </li>
-                    <!-- <li>
-                        <a href="/user/allGoods">我发布的商品</a>
-                    </li> -->
                     <li>
-                        <a>用户名:${cur_user.userName}</a>
+                        <a href="${path }/user/userHome.action">用户名:${cur_user.userName}</a>
                     </li>
                     <!-- <li class="notification"> -->
                     <li>
-                    	<a>信誉积分:${cur_user.userCredit }</a>
-                        <!-- <i ng-click="showNotificationBox()" class="iconfont"></i>
-                        <div ng-show="notification.tagIsShow" class="notification-amount red lighten-1 ng-binding ng-hide">0 </div> -->
+                    	<a>信用积分:${cur_user.userCredit }</a>
                     </li>
                     <li class="changemore">
                         <a class="changeMoreVertShow()">
@@ -69,10 +70,10 @@
                         </a>
                         <div class="more-vert">
                             <ul class="dropdown-content">
-                                <li><a href="${path }/user/userHome.action">个人中心</a></li>
                                 <li><a href="${path }/shopcart/shopcartList.action">购物车</a></li>
-                                <li><a onclick="ChangeName()">我的订单</a></li>
-                                <li><a href="/user/logout">退出登录</a></li>
+                                <li><a href="${path }/shopcart/shopcartList.action">我的闲置</a></li>
+                                <li><a href="${path }/orders/orderList.action">我的订单</a></li>
+                                <li><a href="${path }/user/loginOut.action">退出登录</a></li>
                             </ul>
                         </div>
                     </li>
@@ -98,6 +99,12 @@
         <a href="${path }/main.action" class="index">
             <img src="${path }/img/index.png">
             <em>最新发布</em>
+        </a>
+    </li>
+    <li ng-class="{true: 'active'}[isAll]">
+        <a href="${path }/product/productList.action" class="index">
+            <img src="${path }/img/paimai.png">
+            <em>拍卖专区</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isDigital]">
@@ -153,7 +160,7 @@
 -->
 <div class="main-content">
     <!--
-        描述：最新发布
+        描述：商品列表
     -->
     <div class="index-title">
         <a href="">${categoryName }</a>
@@ -174,15 +181,21 @@
                        </div>
                        <div class="card-content item-location">
                            <p>武汉商学院</p>
-                           <%-- <p><c:out value="${product.goodTime}"></c:out></p> --%>
-                           <p><fmt:formatDate value="${product.goodTime}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+                           <c:if test="${product.goodType==1}">
+                           		<p><fmt:formatDate value="${product.goodTime}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+                           </c:if>
+                           <c:if test="${product.goodType==2}">
+                           		拍卖截止时间：
+                           		<p><fmt:formatDate value="${product.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+                           </c:if>
                        </div>
                    </a>
                </div>
                </div>
            </c:forEach>
-        
-        <!-- 分页 -->
+    </div>
+    
+     <!-- 分页 -->
             <div style="text-align: center">
 			        <p>当前 ${pageInfo.pageNum }页,总${pageInfo.pages } 页,总
 			            ${pageInfo.total } 条记录</p>
@@ -198,7 +211,7 @@
 			
 			    <a href="?pageNo=${pageInfo.lastPage}">最后页</a> --%>
 			    
-			    <div class="pagination">
+			    <div style="text-align: center" class="pagination">
 				    <span class="disabled" title="首页"><a href="?pageNo=${pageInfo.firstPage}&cid=${cid}">首页</a></span>
 				    <span class="disabled" title="上一页">
 					    <c:if test="${pageInfo.hasPreviousPage }">
@@ -212,8 +225,7 @@
 				    </span>
 				    <span><a href="?pageNo=${pageInfo.lastPage}&cid=${cid}">最后页</a></span>
 				</div>
-        
-    </div>
+				<br><br>
 </div>
 </body>
 </html>

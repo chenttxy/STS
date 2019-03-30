@@ -57,4 +57,30 @@ public interface ProductMapper {
 	 */
 	Integer updateGoodStatus(Product product);
 	
+	/**
+	 * 发布二手商品
+	 * @param product
+	 * @return
+	 */
+	Integer saveProduct(Product product);
+	
+	/**
+	 * 查询用户发布的二手商品
+	 * @param userId
+	 * @return
+	 */
+	List<Product> queryPublishByUid(Integer userId);
+
+	/**
+	 * 当用户点击商品详情后，更新商品的点击次数
+	 * @param goodId
+	 */
+	void updateGoodClick(String goodId);
+	
+	/**
+	 * 查询热门拍卖商品
+	 * @return
+	 */
+	List<Product> queryListByType();
+	
 }

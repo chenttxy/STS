@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="${path }/css/emoji.css" />
     <link rel="stylesheet" href="${path }/css/userhome.css" />
     <link rel="stylesheet" href="${path }/css/user.css" />
-
+    
+    <link rel="stylesheet" href="${path }/css/index.css" />
+    <link rel="stylesheet" href="${path }/css/materialize-icon.css" />
 </head>
 <body>
 <div class="pre-2" id="big_img">
@@ -42,94 +44,67 @@
                 <div class="big_headimg">
                     <img src="">
                 </div>
-                <span class="name">${cur_urser.userName}</span>
-                <span class="school">鲁东大学</span>
-                <span class="name">闲置数量：${cur_user.userPhone}</span>
-                <span class="fa fa-share-alt">"快去分享一下"</span>
-            </div>
-            <div class="home_nav">
-                <ul>
-                    <a href="">
-                        <li class="notice">
-                            <div></div>
-                            <span>我的消息</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                    <a href="">
-                        <li class="fri">
-                            <div></div>
-                            <span>关注列表</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                    <a href="/user/basic">
-                        <li class="set">
-                            <div></div>
-                            <span>个人设置</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                    <a href="/goods/publishGoods">
-                        <li class="store">
-                            <div></div>
-                            <span>发布物品</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                    <a href="/user/allGoods">
-                        <li class="second">
-                            <div></div>
-                            <span>我的闲置</span>
-                            <strong></strong>
-                        </li>
-                    </a>
-                </ul>
+                <span class="name">用户名：${cur_user.userName}</span>
+                <span class="name">信用积分：${cur_user.userCredit}</span>
+                <span class="school">武汉商学院</span>
+                <span class="name"><a href="${path }/user/updateView.action">更改个人信息</a></span>
             </div>
         </div>
         <!--
-            作者：hlk_1135@outlook.com
-            时间：2017-05-10
             描述：右侧内容区域
         -->
         <div id="user_content">
             <div class="share">
-                <div class="publish">
-                    <div class="pub_content">
-                        <div class="text_pub lead emoji-picker-container">
-                            <input type="text" name="text" data-emojiable="converted" class="form-control" data-type="original-input" style="display: none;"/>
-                            <div class="emoji-wysiwyg-editor form-control" data-type="input" contenteditable="true"></div>
-                            <i class="emoji-picker-icon emoji-picker face" data-type="picker"></i>
-                            <div class="tag"></div>
-                        </div>
-                        <div class="img_pub">
-                            <ul></ul>
-                        </div>
-                    </div>
-                    <div class="button">
-                        <span class="fa fa-image">
-                            ::before
-                            <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" multiple/>
-                        </span>
-                        <div class="checkbox">
-                            <button>发 布</button>
-                        </div>
-                    </div>
-                </div>
-                <!--
-                    作者：hlk_1135@outlook.com
-                    时间：2017-05-11
-                    描述：闲置商品展示
-                -->
-                <div class="share_content">
-                    <div class="no_share">
-                        <span>没有任何内容，去逛逛其它的吧！</span>
-                    </div>
-                </div>
+               <h1>我发布的二手</h1>
+               <div class="waterfoo stark-components row">
+           <c:forEach var="product" items="${pageInfo.list}">
+           	<div class="item-wrapper normal">
+               <div class="card col">
+                   <a href="${path }/product/productInfo.action?goodId=${product.goodId}">
+                       <div class="card-image">
+                           <img src="/imgUrl/${product.goodImage}" />
+                       </div>
+                       <div class="card-content item-price"><c:out value="${product.goodPrice}"></c:out></div>
+                       <div class="card-content item-name">
+                           <p><c:out value="${product.goodName}"></c:out></p>
+                       </div>
+                       <div class="card-content item-location">
+                           <p>武汉商学院</p>
+                           <%-- <p><c:out value="${product.goodTime}"></c:out></p> --%>
+                           <p><fmt:formatDate value="${product.goodTime}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+                       </div>
+                   </a>
+               </div>
+               </div>
+           </c:forEach>
+    </div>
+    
+     <!-- 分页 -->
+            <div style="text-align: center">
+			        <p>当前 ${pageInfo.pageNum }页,总${pageInfo.pages } 页,总
+			            ${pageInfo.total } 条记录</p>
+			    </div>
+			    
+			    <div style="text-align: center" class="pagination">
+				    <span class="disabled" title="首页"><a href="?pageNo=${pageInfo.firstPage}&cid=${cid}">首页</a></span>
+				    <span class="disabled" title="上一页">
+					    <c:if test="${pageInfo.hasPreviousPage }">
+					        <a href="?pageNo=${pageInfo.pageNum-1}&cid=${cid}">上一页</a>
+					    </c:if>
+			    	</span>
+				    <span class="disabled" title="下一页">
+				    	<c:if test="${pageInfo.hasNextPage }">
+					        <a href="?pageNo=${pageInfo.pageNum+1}&cid=${cid}">下一页</a>
+					    </c:if>
+				    </span>
+				    <span><a href="?pageNo=${pageInfo.lastPage}&cid=${cid}">最后页</a></span>
+				</div>
+        
+    </div>
+                
             </div>
           
         </div>
-    </div>
 </div>
 </body>
 </html>

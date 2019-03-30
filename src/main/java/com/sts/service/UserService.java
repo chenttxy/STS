@@ -1,5 +1,8 @@
 package com.sts.service;
 
+import java.util.List;
+
+import com.sts.pojo.Product;
 import com.sts.pojo.User;
 
 public interface UserService {
@@ -11,5 +14,11 @@ public interface UserService {
 	boolean checkPhoneNum(String telephone);
 
 	User login(User u);
+	
+	List<Product> queryPublishByUid(Integer userId);
 
+	boolean checkOldPwd(User user);
+	
+	User queryByUid(Integer userId);
+ 
 }
