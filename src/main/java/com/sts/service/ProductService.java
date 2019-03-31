@@ -20,4 +20,6 @@ public interface ProductService {
 	
 	List<Product> queryListByType();
 	
+	List<Product> queryListByEndTime();
+	
 }

@@ -1,10 +1,5 @@
-<%@page import="com.sts.pojo.User"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="../../taglibs.jsp" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,12 +28,8 @@
     </style>
 </head>
 <body>
-<%
-	User user = (User)session.getAttribute("cur_user");
-	if(user == null){
-		response.sendRedirect(basePath+"loginView.action");
-	}
-%>
+<jsp:include page="common_login.jsp"></jsp:include>
+<a href="${path }/main.action">返回首页</a>
 <div class="pre-2" id="big_img">
     <img src="http://findfun.oss-cn-shanghai.aliyuncs.com/images/head_loading.gif" class="jcrop-preview jcrop_preview_s">
 </div>
@@ -58,7 +49,7 @@
         <div id="user_nav">
             <div class="user_info">
                 <div class="head_img">
-                    <img src="<%=basePath%>img/photo.jpg">
+                    <img src="${path }/img/photo.jpg">
                 </div>
                 <div class="big_headimg">
                     <img src="">

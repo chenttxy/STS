@@ -3,6 +3,7 @@ package com.sts.service;
 import java.util.List;
 
 import com.sts.pojo.Orders;
+import com.sts.pojo.Product;
 
 /**
  * 
@@ -38,4 +39,6 @@ public interface OrderService {
 	 * @return
 	 */
 	boolean orderEvaluation(Orders order);
+
+	Integer createPreorder(List<Product> productList);
 }

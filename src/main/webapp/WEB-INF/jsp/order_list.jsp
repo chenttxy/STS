@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="../../taglibs.jsp" %>
+<%@ include file="../../taglibs.jsp" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,6 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="common_login.jsp"></jsp:include>
+<a href="${path }/main.action">返回首页</a>
 <h1>未完成订单</h1>
 <table class="gridtable">
 	<tr>

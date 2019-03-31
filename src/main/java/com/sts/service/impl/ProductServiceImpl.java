@@ -55,4 +55,9 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.queryListByType();
 	}
 
+	@Override
+	public List<Product> queryListByEndTime() {
+		return productMapper.queryListByEndTime();
+	}
+
 }

@@ -42,6 +42,7 @@
 	}
 </script>
 <body>
+<jsp:include page="common_login.jsp"></jsp:include>
 <form action="">
 	原密码：<input type="text" id="userPwd" name="userPwd" onblur="checkUserPwd()"><br><br>
 	新密码：<input type="text" id="newPwd" name="userPwd"><br><br>

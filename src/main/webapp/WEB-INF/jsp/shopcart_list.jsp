@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="${path }/css/shoppingcart.css"/>
 	</head>
 	<body>
+	<a href="${path }/main.action">返回首页</a>
 		<div class="body">
 			<div class="shop" style="height: 101px;"><i></i>
 			<span><h1>我的购物车</h1></span>

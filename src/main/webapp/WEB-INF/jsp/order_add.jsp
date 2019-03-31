@@ -9,6 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="common_login.jsp"></jsp:include>
+<a href="${path }/main.action">返回首页</a>
 <h1>请完善订单信息</h1>
 <br>
 <form action="${path }/orders/addOrderInfo.action">

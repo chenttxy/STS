@@ -105,4 +105,14 @@
 	  	order by a.good_click desc
   </select>
   
+  <select id="queryListByEndTime" resultMap="BaseResultMap">
+  	select 
+  		<include refid="baseColumn"/>
+  	from product a 
+  	where 
+  		a.end_time <![CDATA[ <= ]]> now()
+  		and a.good_status = 1
+  		and a.good_type = 2
+  </select>
+  
 </mapper>

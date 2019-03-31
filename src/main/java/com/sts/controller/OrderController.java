@@ -61,7 +61,7 @@ public class OrderController {
 		order.setOrderStatus(Constants.ORDER_UNDONE);
 		boolean flag = orderService.addOrderInfo(order);
 		if(flag){
-			return "success";
+			return "order_index";
 		}
 		return "error";
 	}
@@ -71,9 +71,9 @@ public class OrderController {
 		order.setOrderStatus(Constants.ORDER_FINISH);
 		boolean flag = orderService.orderEvaluation(order);
 		if(flag){
-			return "success";
+			return "order_index";
 		}
-		return "";
+		return "error";
 	}
 	
 	@RequestMapping("orderList")

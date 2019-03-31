@@ -26,7 +26,8 @@ public class ShopcartController {
 	@RequestMapping("shopcartList")
 	public String shopcartList(HttpServletRequest rq, Model model){
 		
-		User u = (User) rq.getSession().getAttribute("cur_user");
+		User u = new User();
+		u = (User) rq.getSession().getAttribute("cur_user");
 		
 		List<Product> shopcartList = shopcartService.queryByUserId(u.getUserId());
 		model.addAttribute("shopcartList", shopcartList);

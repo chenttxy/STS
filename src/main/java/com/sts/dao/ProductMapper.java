@@ -83,4 +83,10 @@ public interface ProductMapper {
 	 */
 	List<Product> queryListByType();
 	
+	/**
+	 * 查询已经超过(或刚好到)拍卖截止时间的商品列表
+	 * @return
+	 */
+	List<Product> queryListByEndTime();
+	
 }
