@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sts.dao.PreorderMapper" >
+  <resultMap id="BaseResultMap" type="com.sts.pojo.Preorder" >
+    <id column="preorder_id" property="preorderId" jdbcType="INTEGER" />
+    <result column="good_id" property="goodId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="baseColumn" >
+    preorder_id, good_id, money, user_id
+  </sql>
+  
+  <insert id="savePrice" parameterType="com.sts.pojo.Preorder">
+  	insert into preorder 
+  		(good_id, money, user_id)
+  	values 
+  		(#{goodId}, #{money}, #{userId})
+  </insert>
+  
+  <select id="queryMaxMoney" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+  		<include refid="baseColumn"/>
+	FROM
+		preorder a
+	WHERE
+		a.money = (
+			SELECT
+				max(money)
+			FROM
+				preorder b
+			WHERE
+				b.good_id = #{goodId}
+		)
+	AND a.good_id = #{goodId}
+  </select>
+  
+</mapper>
