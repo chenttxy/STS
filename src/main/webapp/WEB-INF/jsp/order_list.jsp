@@ -11,7 +11,7 @@
 </head>
 <body>
 <jsp:include page="common_login.jsp"></jsp:include>
-<a href="${path }/main.action">返回首页</a>
+<a href="${path }/main.do">返回首页</a>
 <h1>未完成订单</h1>
 <table class="gridtable">
 	<tr>
@@ -25,7 +25,7 @@
 	</tr>
 	<c:forEach items="${orderList1 }" var="orders">
 		<tr>
-			<form action="${path }/orders/addOrderInfo.action">
+			<form action="${path }/orders/addOrderInfo.do">
 			<input type="hidden" value="${orders.orderId }" name="orderId">
 			
 		    <td>${orders.orderId }</td>
@@ -56,7 +56,7 @@
 	</tr>
 	<c:forEach items="${orderList2 }" var="orders">
 		<tr>
-			<form action="${path }/orders/orderEvaluation.action">
+			<form action="${path }/orders/orderEvaluation.do">
 			<input type="hidden" value="${orders.orderId }" name="orderId">
 		    <td>${orders.orderId }</td>
 		    <td>${orders.goodId }</td>

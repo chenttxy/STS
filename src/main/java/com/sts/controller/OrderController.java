@@ -53,7 +53,7 @@ public class OrderController {
 			model.addAttribute("orderInfo", o);
 			return "order_add";
 		}
-		return "error";
+		return "common_error";
 	}
 	
 	@RequestMapping("addOrderInfo")
@@ -63,7 +63,7 @@ public class OrderController {
 		if(flag){
 			return "order_index";
 		}
-		return "error";
+		return "common_error";
 	}
 	
 	@RequestMapping("orderEvaluation")
@@ -73,7 +73,7 @@ public class OrderController {
 		if(flag){
 			return "order_index";
 		}
-		return "error";
+		return "common_error";
 	}
 	
 	@RequestMapping("orderList")

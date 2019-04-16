@@ -24,7 +24,7 @@
             <!-- <a href="/goods/homeGoods">
                 <h1 class="logo"></h1>
             </a> -->
-            <a href="${path }/main.action">
+            <a href="${path }/main.do">
                 <div class="home"></div>
             </a>
         </div>
@@ -42,7 +42,7 @@
                 <span class="name">用户名：${cur_user.userName}</span>
                 <span class="name">信用积分：${cur_user.userCredit}</span>
                 <span class="school">武汉商学院</span>
-                <span class="name"><a href="${path }/user/updateView.action">更改个人信息</a></span>
+                <span class="name"><a href="${path }/user/updateView.do">更改个人信息</a></span>
             </div>
         </div>
         <!--
@@ -55,7 +55,7 @@
            <c:forEach var="product" items="${pageInfo.list}">
            	<div class="item-wrapper normal">
                <div class="card col">
-                   <a href="${path }/product/productInfo.action?goodId=${product.goodId}">
+                   <a href="${path }/product/productInfo.do?goodId=${product.goodId}">
                        <div class="card-image">
                            <img src="/imgUrl/${product.goodImage}" />
                        </div>

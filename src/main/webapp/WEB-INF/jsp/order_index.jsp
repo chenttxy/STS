@@ -8,7 +8,7 @@
 </head>
 <body>
 <%
-	response.sendRedirect(request.getContextPath()+"/orders/orderList.action");
+	response.sendRedirect(request.getContextPath()+"/orders/orderList.do");
 %>
 </body>
 </html>

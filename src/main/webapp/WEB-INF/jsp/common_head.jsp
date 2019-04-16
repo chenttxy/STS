@@ -170,49 +170,49 @@
 -->
 <div ng-controller="sidebarController" class="sidebar stark-components ng-scope">
     <li ng-class="{true: 'active'}[isAll]">
-        <a href="${path }/main.action" class="index">
+        <a href="${path }/main.do" class="index">
             <img src="${path }/img/index.png">
             <em>最新发布</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isDigital]">
-        <a href="${path }/product/productList.action?cid=1" class="digital">
+        <a href="${path }/product/productList.do?cid=1" class="digital">
             <img src="${path }/img/digital.png"  />
             <em>闲置数码</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isRide]">
-        <a href="${path }/product/productList.action?cid=2" class="ride">
+        <a href="${path }/product/productList.do?cid=2" class="ride">
             <img src="${path }/img/ride.png"/>
             <em>校园代步</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isCommodity]">
-        <a href="${path }/product/productList.action?cid=3" class="commodity">
+        <a href="${path }/product/productList.do?cid=3" class="commodity">
             <img src="${path }/img/commodity.png"/>
             <em>电器日用</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isBook]">
-        <a href="${path }/product/productList.action?cid=4" class="book">
+        <a href="${path }/product/productList.do?cid=4" class="book">
             <img src="${path }/img/book.png"/>
             <em>图书教材</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isMakeup]">
-        <a href="${path }/product/productList.action?cid=5" class="makeup">
+        <a href="${path }/product/productList.do?cid=5" class="makeup">
             <img src="${path }/img/makeup.png"/>
             <em>美妆衣物</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isSport]">
-        <a href="${path }/product/productList.action?cid=6" class="sport">
+        <a href="${path }/product/productList.do?cid=6" class="sport">
             <img src="${path }/img/sport.png"/>
             <em>运动棋牌</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isSmallthing]">
-        <a href="${path }/product/productList.action?cid=7" class="smallthing">
+        <a href="${path }/product/productList.do?cid=7" class="smallthing">
             <img src="${path }/img/smallthing.png"/>
             <em>票券小物</em>
         </a>

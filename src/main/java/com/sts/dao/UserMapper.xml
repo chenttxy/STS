@@ -47,4 +47,16 @@
   	from user a 
   	where a.user_id = #{userId}
   </select>
+  
+  <select id="queryUserList" resultMap="BaseResultMap">
+  	select 
+  		<include refid="baseColumn"/>
+  	from user a
+  </select>
+  
+  <update id="updateUserStatus" parameterType="com.sts.pojo.User">
+  	update user a set 
+  		a.user_status = #{userStatus}
+  	where a.user_id = #{userId}
+  </update>
 </mapper>

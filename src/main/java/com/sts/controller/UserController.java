@@ -29,14 +29,14 @@ public class UserController {
 	@Autowired
 	ProductService productService;
 	
-	@RequestMapping(value="saveUser.action")
+	@RequestMapping(value="saveUser")
 	public String saveUser(User u){
 		userService.saveUser(u);
 		
-		return "login";
+		return "user_login";
 	}
 	
-	@RequestMapping(value="login.action")
+	@RequestMapping(value="login")
 	public String login(HttpServletRequest rq, HttpServletResponse rs, User u){
 		User user = null;
 		user = userService.login(u);
@@ -44,12 +44,12 @@ public class UserController {
 		if(user != null){
 			rq.getSession().setAttribute("cur_user", user);
 			
-			return "index";
+			return "common_index";
 		}
-		return "login";
+		return "user_login";
 	}
 	
-	@RequestMapping(value="checkUsername.action")
+	@RequestMapping(value="checkUsername")
 	public void checkUsername(String userName, HttpServletResponse rs){
 		
 		boolean flag = userService.checkUsername(userName);
@@ -60,7 +60,7 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value="checkPhoneNum.action")
+	@RequestMapping(value="checkPhoneNum")
 	public void checkPhoneNum(String telephone, HttpServletResponse response){
 		
 		boolean flag = userService.checkPhoneNum(telephone);
@@ -72,7 +72,7 @@ public class UserController {
 		}
 	 }
 	
-	@RequestMapping(value="sendMsg.action")
+	@RequestMapping(value="sendMsg")
 	public void sendMsg(String phoneNum, HttpServletRequest rq){
 		System.out.println(phoneNum);
 		/*String code = GetMessage.getCode(phoneNum);*/
@@ -80,7 +80,7 @@ public class UserController {
 	}
 	
 	//对验证码进行验证
-	@RequestMapping(value="checkIdentityNum.action")
+	@RequestMapping(value="checkIdentityNum")
 	public void checkIdentityNum(String identityNum, HttpServletRequest request, HttpServletResponse response){
 		System.out.println("identityNum"+identityNum);
 		String code = (String) request.getSession().getAttribute("code");
@@ -124,7 +124,7 @@ public class UserController {
 	@RequestMapping("loginOut")
 	public String loginOut(HttpServletRequest rq){
 		rq.getSession().removeAttribute("cur_user");
-		return "index";
+		return "common_index";
 	}
 	
 	@RequestMapping("checkOldPwd")

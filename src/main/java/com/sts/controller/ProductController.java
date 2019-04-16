@@ -66,9 +66,9 @@ public class ProductController {
       boolean flag = false;
       flag = productService.saveProduct(product);
       if(flag){
-    	  return "success";
+    	  return "common_success";
       }
-	  return "error";
+	  return "common_error";
 	}
 	
 	@RequestMapping("productInfo")

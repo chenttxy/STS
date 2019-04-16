@@ -16,7 +16,7 @@
         <img class="content-logo" src="${path }/img/form_logo.png" alt="logo">
         <h1 class="content-title">登录</h1>
         <div class="content-form">
-            <form method="post" action="${path }/user/login.action" onsubmit="return submitTest()">
+            <form method="post" action="${path }/user/login.do" onsubmit="return submitTest()">
                 <div id="change_margin_1">
                     <input class="userName" type="text" id="userName" name="userName" placeholder="请输入用户名" onblur="oBlur_1()" onfocus="oFocus_1()">
                 </div>
@@ -33,7 +33,7 @@
             </form>
         </div>
         <div class="content-login-description">没有账户？</div>
-        <div><a class="content-login-link" href="register.jsp">注册</a></div>
+        <div><a class="content-login-link" href="user_register.jsp">注册</a></div>
     </div>
 <script type="text/javascript">
 //用户框失去焦点后验证value值

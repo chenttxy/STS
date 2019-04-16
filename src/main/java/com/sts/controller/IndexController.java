@@ -36,14 +36,19 @@ public class IndexController {
 		return "main";
 	}
 	
-	@RequestMapping(value="loginView")
+	@RequestMapping(value="/loginView")
 	public String login(){
-		return "login";
+		return "user_login";
 	}
 	
-	@RequestMapping(value="registerView")
+	@RequestMapping(value="/registerView")
 	public String register(){
-		return "register";
+		return "user_register";
+	}
+	
+	@RequestMapping("/adminLogin")
+	public String adminLogin(){
+		return "admin_login";
 	}
 
 }

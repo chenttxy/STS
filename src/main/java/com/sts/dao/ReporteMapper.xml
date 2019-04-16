@@ -9,4 +9,14 @@
     <result column="good_id" property="goodId" jdbcType="INTEGER" />
   </resultMap>
   
+  <sql id="baseColumn">
+  	reporte_id, reporte_info, reporte_time, user_id, good_id
+  </sql>
+  
+  <select id="queryList" resultMap="BaseResultMap">
+  	select 
+  		<include refid="baseColumn"/>
+  	from reporte a
+  </select>
+  
 </mapper>

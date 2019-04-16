@@ -32,7 +32,7 @@ function tipMessage(){
                 <em class="em3">Wbu.market</em>
             </a>
             <div class="nav-wrapper search-bar">
-                <form ng-submit="search()" class="ng-pristine ng-invalid ng-invalid-required" action="${path }/product/queryListByName.action">
+                <form ng-submit="search()" class="ng-pristine ng-invalid ng-invalid-required" action="${path }/product/queryListByName.do">
                     <div class="input-field">
                         <input id="search" name="goodName" placeholder="搜点什么吧233..." style="height: 40px;"
                                class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"/>
@@ -54,11 +54,11 @@ function tipMessage(){
                 <c:if test="${!empty cur_user}">
                     <li class="publish-btn">
                         <button data-position="bottom" class="red lighten-1 waves-effect waves-light btn">
-                            <a href="${path }/product/productPub.action">我要发布</a>
+                            <a href="${path }/product/productPub.do">我要发布</a>
                         </button>
                     </li>
                     <li>
-                        <a href="${path }/user/userHome.action">用户名:${cur_user.userName}</a>
+                        <a href="${path }/user/userHome.do">用户名:${cur_user.userName}</a>
                     </li>
                     <!-- <li class="notification"> -->
                     <li>
@@ -70,20 +70,20 @@ function tipMessage(){
                         </a>
                         <div class="more-vert">
                             <ul class="dropdown-content">
-                                <li><a href="${path }/shopcart/shopcartList.action">购物车</a></li>
-                                <li><a href="${path }/shopcart/shopcartList.action">我的闲置</a></li>
-                                <li><a href="${path }/orders/orderList.action">我的订单</a></li>
-                                <li><a href="${path }/user/loginOut.action">退出登录</a></li>
+                                <li><a href="${path }/shopcart/shopcartList.do">购物车</a></li>
+                                <li><a href="${path }/shopcart/shopcartList.do">我的闲置</a></li>
+                                <li><a href="${path }/orders/orderList.do">我的订单</a></li>
+                                <li><a href="${path }/user/loginOut.do">退出登录</a></li>
                             </ul>
                         </div>
                     </li>
                 </c:if>
                 <c:if test="${empty cur_user}">
                     <li>
-                        <a href="${path }/loginView.action">登录</a>
+                        <a href="${path }/loginView.do">登录</a>
                     </li>
                     <li>
-                        <a href="${path }/register.jsp">注册</a>
+                        <a href="${path }/registerView.do">注册</a>
                     </li>
                 </c:if>
             </ul>
@@ -96,55 +96,55 @@ function tipMessage(){
 -->
 <div ng-controller="sidebarController" class="sidebar stark-components ng-scope">
     <li ng-class="{true: 'active'}[isAll]">
-        <a href="${path }/main.action" class="index">
+        <a href="${path }/main.do" class="index">
             <img src="${path }/img/index.png">
             <em>最新发布</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isAll]">
-        <a href="${path }/product/productList.action" class="index">
+        <a href="${path }/product/productList.do" class="index">
             <img src="${path }/img/paimai.png">
             <em>拍卖专区</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isDigital]">
-        <a href="${path }/product/productList.action?cid=1" class="digital">
+        <a href="${path }/product/productList.do?cid=1" class="digital">
             <img src="${path }/img/digital.png"  />
             <em>闲置数码</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isRide]">
-        <a href="${path }/product/productList.action?cid=2" class="ride">
+        <a href="${path }/product/productList.do?cid=2" class="ride">
             <img src="${path }/img/ride.png"/>
             <em>校园代步</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isCommodity]">
-        <a href="${path }/product/productList.action?cid=3" class="commodity">
+        <a href="${path }/product/productList.do?cid=3" class="commodity">
             <img src="${path }/img/commodity.png"/>
             <em>电器日用</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isBook]">
-        <a href="${path }/product/productList.action?cid=4" class="book">
+        <a href="${path }/product/productList.do?cid=4" class="book">
             <img src="${path }/img/book.png"/>
             <em>图书教材</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isMakeup]">
-        <a href="${path }/product/productList.action?cid=5" class="makeup">
+        <a href="${path }/product/productList.do?cid=5" class="makeup">
             <img src="${path }/img/makeup.png"/>
             <em>美妆衣物</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isSport]">
-        <a href="${path }/product/productList.action?cid=6" class="sport">
+        <a href="${path }/product/productList.do?cid=6" class="sport">
             <img src="${path }/img/sport.png"/>
             <em>运动棋牌</em>
         </a>
     </li>
     <li ng-class="{true: 'active'}[isSmallthing]">
-        <a href="${path }/product/productList.action?cid=7" class="smallthing">
+        <a href="${path }/product/productList.do?cid=7" class="smallthing">
             <img src="${path }/img/smallthing.png"/>
             <em>票券小物</em>
         </a>
@@ -171,7 +171,7 @@ function tipMessage(){
            <c:forEach var="product" items="${pageInfo.list}">
            	<div class="item-wrapper normal">
                <div class="card col">
-                   <a href="${path }/product/productInfo.action?goodId=${product.goodId}">
+                   <a href="${path }/product/productInfo.do?goodId=${product.goodId}">
                        <div class="card-image">
                            <img src="/imgUrl/${product.goodImage}" />
                        </div>

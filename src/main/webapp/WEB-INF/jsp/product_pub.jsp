@@ -29,7 +29,7 @@
 </head>
 <body>
 <jsp:include page="common_login.jsp"></jsp:include>
-<a href="${path }/main.action">返回首页</a>
+<a href="${path }/main.do">返回首页</a>
 <div class="pre-2" id="big_img">
     <img src="http://findfun.oss-cn-shanghai.aliyuncs.com/images/head_loading.gif" class="jcrop-preview jcrop_preview_s">
 </div>
@@ -39,7 +39,7 @@
             <%-- <a href="<%=basePath%>goods/homeGoods">
                 <!-- <h1 class="logo"></h1> -->
             </a> --%>
-            <a href="${path }/main.action">
+            <a href="${path }/main.do">
                 <div class="home"></div>
             </a>
         </div>
@@ -64,7 +64,7 @@
         -->
         <div id="user_content">
             <div class="basic">
-                <form:form action="${path }/product/productUpload.action" method="post" role="form" enctype="multipart/form-data">
+                <form:form action="${path }/product/productUpload.do" method="post" role="form" enctype="multipart/form-data">
                     <h1 style="margin-left: 210px;">发布物品</h1><hr />
                     <div class="changeinfo">
                         <span>物品名：</span>

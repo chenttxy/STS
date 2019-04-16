@@ -16,9 +16,18 @@
     <link rel="stylesheet" href="${path }/css/detail.css" />
 <script type="text/javascript">
 	function addShopcart(){
+		
+		//判断是否为本人发布的商品，否则跳出
+		var buyerId = $("#buyerId").val();
+		var sellerId = $("#sellerId").val();
+		if(buyerId = sellerId){
+			alert("不能加购本人的商品");
+			return;
+		}
+		
 		$.ajax({
 			type: "get",
-			url:'${path }/shopcart/addShopcart.action?goodId=${product.goodId}',
+			url:'${path }/shopcart/addShopcart.do?goodId=${product.goodId}',
 			dataType:"json",
 			async:false,
 			error:function(){
@@ -48,9 +57,27 @@
 			goodId : $("#goodId").val(),
 			money : $("#addPrice").val()
 		}
+		
+		//判断是否为本人发布的商品，否则跳出
+		var buyerId = $("#buyerId").val();
+		var sellerId = $("#sellerId").val();
+		if(buyerId = sellerId){
+			alert("不能购买本人的商品");
+			return;
+		}
+		
+		var addMoney = $("#addPrice").val();
+		var goodPrice = $("#goodPrice").val();
+		alert(addMoney);
+		alert(goodPrice);
+		if(goodPrice > addMoney){
+			alert("出价请不要低于底价");
+			return;
+		}
+		alert("没有跳出该方法");
 		$.ajax({
 			type: "post",
-			url:'${path }/preorder/savePrice.action',
+			url:'${path }/preorder/savePrice.do',
 			dataType:"json",
 			async:false,
 			data:preorder,
@@ -72,16 +99,18 @@
 <!--
     描述：顶部
 -->
+<input type="hidden" id="buyerId" value="${cur_user.userId }">
+<input type="hidden" id="sellerId" value="${product.userId}">
 <div ng-controller="headerController" class="header stark-components navbar-fixed ng-scope">
     <nav class="white nav1">
         <div class="nav-wrapper">
-            <a href="${path }/main.action" class="logo">
+            <a href="${path }/main.do" class="logo">
                 <em class="em1">武汉商学院</em>
                 <em class="em2">二手市场</em>
                 <em class="em3">Wbu.market</em>
             </a>
             <div class="nav-wrapper search-bar">
-                <form ng-submit="search()" class="ng-pristine ng-invalid ng-invalid-required" action="${path }/product/queryListByName.action">
+                <form ng-submit="search()" class="ng-pristine ng-invalid ng-invalid-required" action="${path }/product/queryListByName.do">
                     <div class="input-field">
                         <input id="search" name="goodName" placeholder="搜点什么吧233..." style="height: 40px;"
                                class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"/>
@@ -103,14 +132,14 @@
                 <c:if test="${!empty cur_user}">
                     <li class="publish-btn">
                         <button data-position="bottom" class="red lighten-1 waves-effect waves-light btn">
-                            <a href="${path }/product/productPub.action">我要发布</a>
+                            <a href="${path }/product/productPub.do">我要发布</a>
                         </button>
                     </li>
                     <!-- <li>
                         <a href="/user/allGoods">我发布的商品</a>
                     </li> -->
                     <li>
-                        <a href="${path }/user/userHome.action">用户名:${cur_user.userName}</a>
+                        <a href="${path }/user/userHome.do">用户名:${cur_user.userName}</a>
                     </li>
                     <li>
                         <a>信用积分:${cur_user.userCredit }</a>
@@ -121,20 +150,20 @@
                         </a>
                         <div class="more-vert">
                             <ul class="dropdown-content">
-                                <li><a href="${path }/shopcart/shopcartList.action">购物车</a></li>
-                                <li><a href="${path }/shopcart/shopcartList.action">我的闲置</a></li>
+                                <li><a href="${path }/shopcart/shopcartList.do">购物车</a></li>
+                                <li><a href="${path }/shopcart/shopcartList.do">我的闲置</a></li>
                                 <li><a onclick="ChangeName()">我的订单</a></li>
-                                <li><a href="${path }/user/loginOut.action">退出登录</a></li>
+                                <li><a href="${path }/user/loginOut.do">退出登录</a></li>
                             </ul>
                         </div>
                     </li>
                 </c:if>
                 <c:if test="${empty cur_user}">
                     <li>
-                        <a href="${path }/loginView.action">登录</a>
+                        <a href="${path }/loginView.do">登录</a>
                     </li>
                     <li>
-                        <a href="${path }/register.jsp">注册</a>
+                        <a href="${path }/user_register.jsp">注册</a>
                     </li>
                 </c:if>
             </ul>
@@ -166,6 +195,7 @@
     	<input type="hidden" name="goodId" id="goodId" value="${product.goodId }">
         <h1 class="item-name">${product.goodName}</h1>
         <h2 class="item-price">${product.goodPrice}</h2>
+        <input type="hidden" id="goodPrice" value="${product.goodPrice}">
         <div class="item-public-info">
             <p class="bargain">可讲价</p>
             <p>
@@ -179,9 +209,9 @@
         <c:if test="${empty cur_user}">
             <div class="item-contact">
                 <p class="not-login">
-                    <a href="${path }/loginView.action">登录</a>
+                    <a href="${path }/loginView.do">登录</a>
                     <em>或</em>
-                    <a href="${path }/registerView.action">注册</a>
+                    <a href="${path }/registerView.do">注册</a>
                     <em>后查看联系信息</em>
                 </p>
             </div>
@@ -209,7 +239,7 @@
             </div>
             <c:if test="${product.goodType==1}">
             	<h3><a onclick="addShopcart()" style="cursor:pointer;">加购物车</a></h3><br><br>
-       			<h3><a href="${path }/orders/createOrder.action?goodId=${product.goodId}">购买</a></h3>
+       			<h3><a href="${path }/orders/createOrder.do?goodId=${product.goodId}">购买</a></h3>
        			<h1 class="item-pub-time">发布于 <fmt:formatDate value="${product.goodTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h1>
             </c:if>
             <br>

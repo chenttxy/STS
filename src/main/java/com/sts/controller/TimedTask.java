@@ -40,6 +40,5 @@ public class TimedTask {
 		List<Product> productList = productSevice.queryListByEndTime();
 		Integer n = orderService.createPreorder(productList);
 		System.out.println("执行结果==========="+n);
-		
 	}
 }

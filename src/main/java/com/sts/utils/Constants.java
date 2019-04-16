@@ -36,4 +36,15 @@ public class Constants {
 	 * 订单已完成
 	 */
 	public static final int ORDER_FINISH = 3;
+	
+	/**
+	 * 用户正常状态
+	 */
+	public static final int USER_NORMAL = 1;
+	
+	/**
+	 * 用户被锁定状态
+	 */
+	public static final int USER_LOCKED = 2;
+	
 }

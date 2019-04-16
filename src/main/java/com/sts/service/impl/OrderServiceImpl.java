@@ -117,7 +117,7 @@ public class OrderServiceImpl implements OrderService {
 				order.setOrderStatus(Constants.ORDER_ADD);
 				order.setSellerId(product.getUserId());
 				order.setUserId(preorder.getUserId());
-				n = ordersMapper.createOrder(order);
+				n += ordersMapper.createOrder(order);
 			}
 		}
 		return n;

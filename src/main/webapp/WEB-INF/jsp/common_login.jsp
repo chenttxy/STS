@@ -15,7 +15,7 @@
 <%
 	User user = (User)session.getAttribute("cur_user");
 	if(user == null){
-		response.sendRedirect(basePath+"loginView.action");
+		response.sendRedirect(basePath+"loginView.do");
 	}
 %>
 </body>

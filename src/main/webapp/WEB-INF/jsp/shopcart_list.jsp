@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="${path }/css/shoppingcart.css"/>
 	</head>
 	<body>
-	<a href="${path }/main.action">返回首页</a>
+	<a href="${path }/main.do">返回首页</a>
 		<div class="body">
 			<div class="shop" style="height: 101px;"><i></i>
 			<span><h1>我的购物车</h1></span>
@@ -49,7 +49,7 @@
 					<span class="product-all-qx">全选</span>
 					<div class="all-sl" style="display: none;">(<span class="product-all-sl">0</span>)</div></div>
 				</div> -->
-				<a href="${path }/orders/createOrder.action?goodId=2" class="product-sett product-sett-a">结算</a>
+				<a href="${path }/orders/createOrder.do?goodId=2" class="product-sett product-sett-a">结算</a>
 				<div class="all-product"><span class="all-product-a">¥&thinsp;<span class="all-price">296</span></span></div>
 			</div><br>
 		</div>

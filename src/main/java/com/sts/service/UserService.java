@@ -20,5 +20,9 @@ public interface UserService {
 	boolean checkOldPwd(User user);
 	
 	User queryByUid(Integer userId);
+
+	List<User> queryUserList();
+
+	boolean updateUserStatus(User user);
  
 }

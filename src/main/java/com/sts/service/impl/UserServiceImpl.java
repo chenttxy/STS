@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Product> queryPublishByUid(Integer userId) {
-		return productMapper.queryByUserId(userId);
+		return productMapper.queryPublishByUid(userId);
 	}
 
 	@Override
@@ -72,6 +72,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User queryByUid(Integer userId) {
 		return userMapper.queryByUid(userId);
+	}
+
+	@Override
+	public List<User> queryUserList() {
+		return userMapper.queryUserList();
+	}
+
+	@Override
+	public boolean updateUserStatus(User user) {
+		boolean flag = false;
+		int n = userMapper.updateUserStatus(user);
+		if(n > 0){
+			flag = true;
+		}
+		return flag;
 	}
 
 }

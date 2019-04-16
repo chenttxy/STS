@@ -32,7 +32,7 @@
   
   <servlet-mapping>
   	<servlet-name>springmvc</servlet-name>
-  	<url-pattern>*.action</url-pattern>
+  	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
   
   <!-- 处理post乱码 -->

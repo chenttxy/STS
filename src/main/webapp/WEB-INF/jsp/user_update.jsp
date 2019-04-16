@@ -15,7 +15,7 @@
 		alert(oldPwd);
 		$.ajax({
 			"async":false,//同步操作
-			"url":"${path}/user/checkOldPwd.action",
+			"url":"${path}/user/checkOldPwd.do",
 			"type":"POST",
 			"data":{
 				"userPwd":oldPwd

@@ -9,7 +9,7 @@
 </head>
 <body>
 <%
-	response.sendRedirect(request.getContextPath()+"/main.action");
+	response.sendRedirect(request.getContextPath()+"/main.do");
 %>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.sts.dao;
 
+import java.util.List;
+
 import com.sts.pojo.User;
 
 public interface UserMapper {
@@ -32,5 +34,19 @@ public interface UserMapper {
 	 * @return
 	 */
 	User queryByUid(Integer userId);
+
+	/**
+	 * 管理员查询用户列表
+	 * @return
+	 */
+	List<User> queryUserList();
+	
+	/**
+	 * 管理员更改用户状态
+	 * @param userId
+	 * @param userStatus
+	 * @return
+	 */
+	Integer updateUserStatus(User user);
 	
 }

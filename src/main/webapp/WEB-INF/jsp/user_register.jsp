@@ -21,17 +21,17 @@ $.validator.addMethod(
 			//params)校验规则输入的参数
 			var flag = true;
 			$.ajax({
-				"async":false,//同步操作
-				"url":"${path}/user/checkUsername.action",
-				"type":"POST",
-				"data":{
+				async:false,//同步操作
+				url:"${path}/user/checkUsername.do",
+				type:"POST",
+				data:{
 					"userName":value
 					},
-				"dataType":"json",
-				"success":function(data){
+				dataType:"json",
+				success:function(data){
 					flag = data.flag;
 				},
-				"error":function(){
+				error:function(){
 					alert("出错")			
 				}
 			});
@@ -52,7 +52,7 @@ $.validator.addMethod(
 			var checkPhoneNum = 'checkPhoneNum';
 			$.ajax({
 				"async":false,//同步操作
-				"url":"${path}/user/checkPhoneNum.action",
+				"url":"${path}/user/checkPhoneNum.do",
 				"type":"POST",
 				"data":{
 					"telephone":value,
@@ -81,7 +81,7 @@ $.validator.addMethod(
 			var flag = false;
 			$.ajax({
 				"async":false,//同步操作
-				"url":"${path}/user/checkIdentityNum.action",
+				"url":"${path}/user/checkIdentityNum.do",
 				"type":"POST",
 				"data":{
 					"identityNum":value,
@@ -165,7 +165,7 @@ function sendMsg(){
 	var telephone = $("#phoneNum").val();
 	alert(telephone)
 	$.ajax({
-		url:"${path }/user/sendMsg.action",
+		url:"${path }/user/sendMsg.do",
 		type:"post",
 		dataType:"json",
 		data:{
@@ -183,7 +183,7 @@ function sendMsg(){
         <img class="content-logo" src="${path }/img/form_logo.png" alt="logo">
         <h1 class="content-title">注册</h1>
         <div class="content-form">
-            <form method="post" action="${path }/user/saveUser.action" name="registerForm" id="registerForm">
+            <form method="post" action="${path }/user/saveUser.do" name="registerForm" id="registerForm">
                 <div id="change_margin_1">
                     <input class="inputForm" type="text" name="userName" placeholder="请输入用户名">
                 </div><p id="remind"></p>
@@ -221,7 +221,7 @@ function sendMsg(){
             </form>
         </div>
         <div class="content-login-description">已经拥有账户？</div>
-        <div><a class="content-login-link" href="login.jsp">登录</a></div>
+        <div><a class="content-login-link" href="common_login.jsp">登录</a></div>
     </div>
 </body>
 </html>
