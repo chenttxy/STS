@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sts.dao.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.sts.pojo.Admin" >
+    <id column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+    <result column="admin_pwd" property="adminPwd" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="baseColumn" >
+    admin_id, admin_name, admin_pwd
+  </sql>
+  
+  <select id="adminLogin" parameterType="Admin" resultType="java.lang.Integer">
+  	select count(*) from admin a where a.admin_name = #{adminName} and a.admin_pwd = #{adminPwd}
+  </select>
+  
+</mapper>
