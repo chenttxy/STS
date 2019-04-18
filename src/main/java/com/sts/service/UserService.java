@@ -24,5 +24,7 @@ public interface UserService {
 	List<User> queryUserList();
 
 	boolean updateUserStatus(User user);
+
+	boolean updateUserPwd(User u);
  
 }

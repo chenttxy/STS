@@ -59,4 +59,10 @@
   		a.user_status = #{userStatus}
   	where a.user_id = #{userId}
   </update>
+  
+  <update id="updateUserPwd" parameterType="com.sts.pojo.User">
+  	update user a set 
+  		a.user_pwd = #{userPwd}
+  	where a.user_id = #{userId}
+  </update>
 </mapper>

@@ -57,6 +57,7 @@
   
   <select id="queryByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
   	SELECT
+  		p.good_id,
 		p.good_name,
 		p.good_price,
 		p.good_image,

@@ -7,4 +7,6 @@ import com.sts.pojo.Reporte;
 public interface ReporteService {
 
 	List<Reporte> queryList();
+	
+	boolean addReporte(Reporte reporte);
 }

@@ -22,4 +22,6 @@ public interface ProductService {
 	
 	List<Product> queryListByEndTime();
 	
+	boolean updateGoodStatus(Product product);
+	
 }

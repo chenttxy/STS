@@ -50,5 +50,11 @@ public class IndexController {
 	public String adminLogin(){
 		return "admin_login";
 	}
+	
+	@RequestMapping("/reporteView")
+	public String reporteView(Model model, String goodId){
+		model.addAttribute("goodId", goodId);
+		return "reporte_add";
+	}
 
 }

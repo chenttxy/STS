@@ -64,7 +64,18 @@
                            <p><c:out value="${product.goodName}"></c:out></p>
                        </div>
                        <div class="card-content item-location">
-                           <p>武汉商学院</p>
+                       	   <c:if test="${product.goodStatus==1}">
+                       	   		<p>正常</p>
+                       	   </c:if>
+                       	   <c:if test="${product.goodStatus==2}">
+                       	   		<p>已卖出</p>
+                       	   </c:if>
+                       	   <c:if test="${product.goodStatus==3}">
+                       	   		<p>被锁定</p>
+                       	   </c:if>
+                       	   <c:if test="${product.goodStatus==4}">
+                       	   		<p>已下架</p>
+                       	   </c:if>
                            <%-- <p><c:out value="${product.goodTime}"></c:out></p> --%>
                            <p><fmt:formatDate value="${product.goodTime}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
                        </div>
@@ -97,9 +108,9 @@
         
     </div>
                 
-            </div>
+	</div>
           
-        </div>
+</div>
 </div>
 </body>
 </html>

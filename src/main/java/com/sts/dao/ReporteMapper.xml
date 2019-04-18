@@ -19,4 +19,11 @@
   	from reporte a
   </select>
   
+  <insert id="addReporte" parameterType="Reporte">
+  	insert into reporte
+  		(reporte_info, user_id, good_id) 
+  	values
+  		(#{reporteInfo}, #{userId}, #{goodId})
+  </insert>
+  
 </mapper>

@@ -23,13 +23,14 @@ public class ShopcartController {
 	@Autowired
 	ShopcartService shopcartService;
 	
+	User user = new User();
+	
 	@RequestMapping("shopcartList")
 	public String shopcartList(HttpServletRequest rq, Model model){
 		
-		User u = new User();
-		u = (User) rq.getSession().getAttribute("cur_user");
+		user = (User) rq.getSession().getAttribute("cur_user");
 		
-		List<Product> shopcartList = shopcartService.queryByUserId(u.getUserId());
+		List<Product> shopcartList = shopcartService.queryByUserId(user.getUserId());
 		model.addAttribute("shopcartList", shopcartList);
 		
 		return "shopcart_list";
@@ -38,7 +39,6 @@ public class ShopcartController {
 	@RequestMapping("addShopcart")
 	public void addShopcart(String goodId, HttpServletRequest rq, HttpServletResponse rs) throws IOException{
 		
-		User user = new User();
 		user = (User) rq.getSession().getAttribute("cur_user");
 		Shopcart sc = new Shopcart();
 		
@@ -57,6 +57,24 @@ public class ShopcartController {
 				flag = shopcartService.addShopcart(sc);
 				rs.getWriter().write("{\"flag\":"+flag+"}");
 			}
+		}
+	}
+	
+	@RequestMapping("deleteShopcart")
+	public void deleteShopcart(String goodId, HttpServletRequest rq, HttpServletResponse rs) 
+			throws IOException{
+		
+		user = (User) rq.getSession().getAttribute("cur_user");
+		
+		Shopcart sc = new Shopcart();
+		sc.setGoodId(Integer.parseInt(goodId));
+		sc.setUserId(user.getUserId());
+		int n = shopcartService.deleteShopcart(sc);
+		boolean flag = false;
+		if(n > 0){
+			rs.getWriter().write("{\"flag\":"+flag+"}");
+		} else {
+			rs.getWriter().write("{\"flag\":"+flag+"}");
 		}
 	}
 

@@ -60,4 +60,14 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.queryListByEndTime();
 	}
 
+	@Override
+	public boolean updateGoodStatus(Product product) {
+		boolean flag = false;
+		int n = productMapper.updateGoodStatus(product);
+		if(n > 0){
+			flag = true;
+		}
+		return flag;
+	}
+
 }

@@ -89,4 +89,14 @@ public class UserServiceImpl implements UserService {
 		return flag;
 	}
 
+	@Override
+	public boolean updateUserPwd(User u) {
+		boolean flag = false;
+		int n = userMapper.updateUserPwd(u);
+		if(n > 0){
+			flag = true;
+		}
+		return flag;
+	}
+
 }

@@ -9,6 +9,52 @@
 <link rel="stylesheet" href="${path }/css/common_table.css" />
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 </head>
+<script type="text/javascript">
+function changeStatus(goodId){
+	var flag = "";
+	$.ajax({
+		url:'${path}/admin/queryGoodStatus.do',
+		data:{
+			'goodId':goodId,
+		},
+		type:'post',
+		async:false,
+		dataType:"json",
+		success:function(data){
+			flag = data.flag;
+		},
+		error:function(){
+			alert("出错")			
+		}
+	});
+	if(flag == 1){
+		//写修改商品状态的代码
+		$.ajax({
+			url:'${path}/admin/updateGoodStatus.do',
+			data:{
+				'goodId':goodId,
+			},
+			type:'post',
+			async:false,
+			dataType:"json",
+			success:function(data){
+				flag = data.flag;
+				if(flag){
+					alert("锁定成功！！");
+					window.location.href="${path }/admin/reportList.do";
+				}else{
+					alert("出错!");
+				}
+			},
+			error:function(){
+				alert("出错")			
+			}
+		});
+	} else {
+		alert("该商品非正常状态!!!")
+	}
+}
+</script>
 <body>
 <table class="gridtable">
 	<tr>
@@ -29,7 +75,7 @@
 			<td>${reporte.userId }</td>
 			<td>${reporte.goodId }</td>
 			<td>
-				<a onclick="changeStatus('${user.userId}', '${user.userStatus }')" style="cursor:pointer;">更改用户状态</a>
+				<a onclick="changeStatus('${reporte.goodId}')" style="cursor:pointer;">锁定商品</a>
 			</td>
 		</tr>
 	</c:forEach>

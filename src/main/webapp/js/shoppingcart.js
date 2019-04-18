@@ -38,6 +38,9 @@ $(function(){
 	$(".product-del").click(function(){
 		if(confirm("您确定要删除当前商品？")){
 			$(this).closest(".product-box").remove();
+			$.ajax({
+				url:'/final',
+			});
 		}
 		
 		koncat();
@@ -108,3 +111,28 @@ function koncat(){
 		$(".kon-cat").css("display","none");
 	}
 }
+
+//点击结算时获得当前选中项的商品ID
+function jiesuan(){
+	var aBox=getByClass("product-em product-xz");
+	var goodIds = "";
+	   for(var i=0;i<aBox.length;i++){
+	      goodIds += aBox[i].innerHTML + ","
+	}
+	alert(goodIds);
+	window.location.href="/finalSTS/orders/createOrder.do?goodId="+goodIds;
+}
+
+function getByClass(sClass){
+    var aResult=[];
+    var aEle=document.getElementsByTagName('*');
+    /*正则模式*/
+    var re=new RegExp("\\b" + sClass + "\\b","g");
+    for(var i=0;i<aEle.length;i++){
+        /*字符串search方法判断是否存在匹配*/
+        if(aEle[i].className.search(re) != -1){
+            aResult.push(aEle[i]);
+        }
+    }
+    return aResult;
+};

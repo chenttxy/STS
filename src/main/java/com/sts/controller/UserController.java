@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sts.pojo.Product;
+import com.sts.pojo.Reporte;
 import com.sts.pojo.User;
 import com.sts.service.ProductService;
+import com.sts.service.ReporteService;
 import com.sts.service.UserService;
 
 @Controller
@@ -24,10 +26,15 @@ import com.sts.service.UserService;
 public class UserController {
 	
 	@Autowired
-	private UserService userService;
+	UserService userService;
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	ReporteService reporteService;
+	
+	User user = new User();
 	
 	@RequestMapping(value="saveUser")
 	public String saveUser(User u){
@@ -38,9 +45,7 @@ public class UserController {
 	
 	@RequestMapping(value="login")
 	public String login(HttpServletRequest rq, HttpServletResponse rs, User u){
-		User user = null;
 		user = userService.login(u);
-		System.out.println(user+"============");
 		if(user != null){
 			rq.getSession().setAttribute("cur_user", user);
 			
@@ -102,17 +107,14 @@ public class UserController {
 	public String userHome(@RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo,
 							Model model, HttpServletRequest rq){
 		
-		//根据cid查找商品分类名称
 		
 		Integer pageSize = 6;//每页显示记录数
         //分页查询
         PageHelper.startPage(pageNo, pageSize);
         
-        User u = new User();
-        u = (User) rq.getSession().getAttribute("cur_user");
+        user = (User) rq.getSession().getAttribute("cur_user");
         
-    	//根据cid查找该类下的商品列表
-        List<Product> productList = userService.queryPublishByUid(u.getUserId());
+        List<Product> productList = userService.queryPublishByUid(user.getUserId());
         
         PageInfo<Product> pageInfo = new PageInfo<Product>(productList);
         
@@ -130,14 +132,13 @@ public class UserController {
 	@RequestMapping("checkOldPwd")
 	public void checkOldPwd(String userPwd, HttpServletResponse response, HttpServletRequest request){
 		
-		User u = new User();
-		u = (User) request.getSession().getAttribute("cur_user");
+		user = (User) request.getSession().getAttribute("cur_user");
 		
-		User user = new User();
-		user.setUserId(u.getUserId());
-		user.setUserPwd(userPwd);
+		User user1 = new User();
+		user1.setUserId(user.getUserId());
+		user1.setUserPwd(userPwd);
 		
-		boolean flag = userService.checkOldPwd(user);
+		boolean flag = userService.checkOldPwd(user1);
 		
 		System.out.println(flag+"=============");
 		String json = "{\"flag\":"+flag+"}";
@@ -150,7 +151,26 @@ public class UserController {
 	
 	@RequestMapping("updateView")
 	public String updateView(){
-		
 		return "user_update";
+	}
+	
+	@RequestMapping("reporteAdd")
+	public String reporteAdd(Reporte reporte, HttpServletRequest rq){
+		user = (User) rq.getSession().getAttribute("cur_user");
+		reporte.setUserId(user.getUserId());
+		boolean flag = reporteService.addReporte(reporte);
+		if(flag){
+			return "common_success";
+		}
+		return "common_error";
+	}
+	
+	@RequestMapping("updateUser")
+	public String updateUser(User u){
+		boolean flag = userService.updateUserPwd(u);
+		if(flag){
+			return "common_success";
+		}
+		return "common_error";
 	}
 }

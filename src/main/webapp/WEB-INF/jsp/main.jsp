@@ -71,7 +71,7 @@ function tipMessage(){
                         <div class="more-vert">
                             <ul class="dropdown-content">
                                 <li><a href="${path }/shopcart/shopcartList.do">购物车</a></li>
-                                <li><a href="${path }/shopcart/shopcartList.do">我的闲置</a></li>
+                                <li><a href="${path }/user/userHome.do.do">个人中心</a></li>
                                 <li><a href="${path }/orders/orderList.do">我的订单</a></li>
                                 <li><a href="${path }/user/loginOut.do">退出登录</a></li>
                             </ul>

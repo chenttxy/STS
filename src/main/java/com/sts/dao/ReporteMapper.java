@@ -18,4 +18,11 @@ public interface ReporteMapper {
 	 * @return
 	 */
 	List<Reporte> queryList();
+	
+	/**
+	 * 添加举报信息
+	 * @param reporte
+	 * @return
+	 */
+	Integer addReporte(Reporte reporte);
 }

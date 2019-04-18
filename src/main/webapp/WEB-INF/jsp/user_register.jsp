@@ -163,7 +163,6 @@ $(function(){
 function sendMsg(){
 	var method = 'sendMsg';
 	var telephone = $("#phoneNum").val();
-	alert(telephone)
 	$.ajax({
 		url:"${path }/user/sendMsg.do",
 		type:"post",
@@ -172,6 +171,7 @@ function sendMsg(){
 			"phoneNum":telephone
 		}
 	});
+	alert("验证码已发送...");
 }
 </script>
 

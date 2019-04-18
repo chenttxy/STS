@@ -20,7 +20,7 @@
 		//判断是否为本人发布的商品，否则跳出
 		var buyerId = $("#buyerId").val();
 		var sellerId = $("#sellerId").val();
-		if(buyerId = sellerId){
+		if(buyerId == sellerId){
 			alert("不能加购本人的商品");
 			return;
 		}
@@ -249,6 +249,7 @@
             	<a onclick="submitPrice()" style="cursor: pointer;">提交我的出价</a>
             	<h1 class="item-pub-time">拍卖截止 <fmt:formatDate value="${product.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/></h1>
             </c:if>
+            <a href="${path }/reporteView.do?goodId=${product.goodId }">举报该商品</a>
         </c:if>
     </div>
 </div>
@@ -262,37 +263,6 @@
         联系我的时候，请说明是在武汉商学院二手平台上看见的哦~
     </p>
 </div>
-<div class="row detail-area">
-    <!-- <div class="clo s12">
-        <div ng-controller="commentController" class="comment stark-components z-depth-1 ng-scope">
-            <h1 class="title">评论</h1>
-            <hr class="hr1" />
-            <hr class="hr2" />
-            <div class="comment-collection">
-                <div class="comment-item ng-scope">
-                    <div class="comment-main-content">
-                        <em class="name ng-binding">hlk_1135:</em>
-                        <em class="ng-hide">回复</em>
-                        <em class="name ng-binding ng-hide">@:</em>
-                        <em class="ng-binding">不错。</em>
-                    </div>
-                    <div class="comment-function">
-                        <em class="time ng-biinding">2017/05/15 16:45:54</em>
-                        <a class="reply-or-delete">删除</a>
-                        <a class="reply-or-delete">回复</a>
-                    </div>
-                </div>
-            </div>
-            <div class="comment-add row">
-                <div class="input-field col s12">
-                    <i class="iconfont prefix"></i>
-                    <input id="commentbox" type="text" class="validate ng-pristine ng-untouched ng-valid ng-empty"/>
-                    <label for="commentbox">这里写下评论</label>
-                    <button type="submit" class="waves-effect wave-light btn comment-submit">确认</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-</div>
+
 </body>
 </html>

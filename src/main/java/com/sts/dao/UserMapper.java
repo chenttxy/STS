@@ -48,5 +48,12 @@ public interface UserMapper {
 	 * @return
 	 */
 	Integer updateUserStatus(User user);
+
+	/**
+	 * 用户修改密码
+	 * @param u
+	 * @return
+	 */
+	Integer updateUserPwd(User u);
 	
 }

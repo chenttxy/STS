@@ -52,4 +52,11 @@ public class Reporte {
     public void setGoodId(Integer goodId) {
         this.goodId = goodId;
     }
+
+	@Override
+	public String toString() {
+		return "Reporte [reporteId=" + reporteId + ", reporteInfo=" + reporteInfo + ", reporteTime=" + reporteTime
+				+ ", userId=" + userId + ", goodId=" + goodId + "]";
+	}
+    
 }

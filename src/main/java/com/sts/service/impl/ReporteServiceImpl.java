@@ -19,4 +19,14 @@ public class ReporteServiceImpl implements ReporteService {
 		return reporteMapper.queryList();
 	}
 
+	@Override
+	public boolean addReporte(Reporte reporte) {
+		boolean flag = false;
+		int n = reporteMapper.addReporte(reporte);
+		if(n > 0){
+			flag = true;
+		}
+		return flag;
+	}
+
 }

@@ -33,26 +33,61 @@ public class OrderController {
 		//获取当前登录人信息
 		User u = (User) rq.getSession().getAttribute("cur_user");
 		
-		//当用户点击结算或购买时，先查询购物车中是否存在该项商品的信息，如果存在，则删除购物车相关的信息
-		Shopcart sc = new Shopcart();
-		sc.setGoodId(Integer.parseInt(goodId));
-		sc.setUserId(u.getUserId());
-		int isExist = shopcartService.queryIsExist(sc);
-		if(isExist > 0){
-			shopcartService.deleteShopcart(sc);
+		if(goodId != null){
+			if(goodId.contains(",")){
+				String[] split = goodId.split(",");
+				
+				//生成的订单列表
+				List<Orders> orderList = new ArrayList<Orders>();
+				
+				for (String gid : split) {
+					//当用户点击结算或购买时，先查询购物车中是否存在该项商品的信息，如果存在，则删除购物车相关的信息
+					Shopcart sc = new Shopcart();
+					sc.setGoodId(Integer.parseInt(gid));
+					sc.setUserId(u.getUserId());
+					int isExist = shopcartService.queryIsExist(sc);
+					if(isExist > 0){
+						shopcartService.deleteShopcart(sc);
+					}
+					//获取初始订单的OrderId
+					String orderId = null;
+					//这一步创建订单，返回创建订单生成的orderId
+					orderId = orderService.createOrder(u.getUserId(), gid);
+					
+					if(orderId != null && !"".equals(orderId)){
+						Orders o = new Orders();
+						o = orderService.queryOrderById(orderId);
+						orderList.add(o);
+					}
+				}
+				
+				model.addAttribute("addOrderList", orderList);
+				return "order_add";
+				
+			}else{
+				//当用户点击结算或购买时，先查询购物车中是否存在该项商品的信息，如果存在，则删除购物车相关的信息
+				Shopcart sc = new Shopcart();
+				sc.setGoodId(Integer.parseInt(goodId));
+				sc.setUserId(u.getUserId());
+				int isExist = shopcartService.queryIsExist(sc);
+				if(isExist > 0){
+					shopcartService.deleteShopcart(sc);
+				}
+				
+				//获取初始订单的OrderId
+				String orderId = null;
+				
+				//这一步创建订单，返回创建订单生成的orderId
+				orderId = orderService.createOrder(u.getUserId(), goodId);
+				if(orderId != null && !"".equals(orderId)){
+					Orders o = new Orders();
+					o = orderService.queryOrderById(orderId);
+					model.addAttribute("orderInfo", o);
+					return "order_add";
+				}
+			}
 		}
 		
-		//获取初始订单的OrderId
-		String orderId = null;
-		
-		//这一步创建订单，返回创建订单生成的orderId
-		orderId = orderService.createOrder(u.getUserId(), goodId);
-		if(orderId != null && !"".equals(orderId)){
-			Orders o = new Orders();
-			o = orderService.queryOrderById(orderId);
-			model.addAttribute("orderInfo", o);
-			return "order_add";
-		}
 		return "common_error";
 	}
 	
