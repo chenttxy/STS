@@ -28,13 +28,14 @@
   	 from user where 
   		(user_name = #{userName} or user_phone = #{userName})
   	and user_pwd = #{userPwd}
+  	and user_status = 1
   </select>
   
   <insert id="saveUser" parameterType="com.sts.pojo.User">
   	insert into user 
-  		(user_id, user_name, user_phone, user_pwd, user_credit, user_status)
+  		(user_id, user_name, user_phone, user_pwd)
     values 
-    	(#{userId}, #{userName}, #{userPhone}, #{userPwd}, #{userCredit}, #{userStatus})
+    	(#{userId}, #{userName}, #{userPhone}, #{userPwd})
   </insert>
   
   <select id="checkOldPwd" parameterType="com.sts.pojo.User" resultType="java.lang.Integer">

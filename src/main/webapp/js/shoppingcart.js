@@ -120,7 +120,7 @@ function jiesuan(){
 	      goodIds += aBox[i].innerHTML + ","
 	}
 	alert(goodIds);
-	window.location.href="/finalSTS/orders/createOrder.do?goodId="+goodIds;
+	window.location.href="/STS/orders/createOrder.do?goodId="+goodIds;
 }
 
 function getByClass(sClass){

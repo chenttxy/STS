@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>log-in</title>
     <link rel="stylesheet" href="${path }/css/common_form.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -33,7 +34,7 @@
             </form>
         </div>
         <div class="content-login-description">没有账户？</div>
-        <div><a class="content-login-link" href="user_register.jsp">注册</a></div>
+        <div><a class="content-login-link" href="${path }/registerView.do">注册</a></div>
     </div>
 <script type="text/javascript">
 //用户框失去焦点后验证value值

@@ -61,20 +61,17 @@
 		//判断是否为本人发布的商品，否则跳出
 		var buyerId = $("#buyerId").val();
 		var sellerId = $("#sellerId").val();
-		if(buyerId = sellerId){
+		if(buyerId == sellerId){
 			alert("不能购买本人的商品");
 			return;
 		}
 		
 		var addMoney = $("#addPrice").val();
 		var goodPrice = $("#goodPrice").val();
-		alert(addMoney);
-		alert(goodPrice);
 		if(goodPrice > addMoney){
 			alert("出价请不要低于底价");
 			return;
 		}
-		alert("没有跳出该方法");
 		$.ajax({
 			type: "post",
 			url:'${path }/preorder/savePrice.do',
@@ -135,9 +132,6 @@
                             <a href="${path }/product/productPub.do">我要发布</a>
                         </button>
                     </li>
-                    <!-- <li>
-                        <a href="/user/allGoods">我发布的商品</a>
-                    </li> -->
                     <li>
                         <a href="${path }/user/userHome.do">用户名:${cur_user.userName}</a>
                     </li>
@@ -163,7 +157,7 @@
                         <a href="${path }/loginView.do">登录</a>
                     </li>
                     <li>
-                        <a href="${path }/user_register.jsp">注册</a>
+                        <a href="${path }/registerView.do">注册</a>
                     </li>
                 </c:if>
             </ul>
