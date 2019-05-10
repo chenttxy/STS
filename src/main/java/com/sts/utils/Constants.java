@@ -18,6 +18,11 @@ public class Constants {
 	public static final int PRODUCT_LOCKED = 3;
 	
 	/**
+	 * 商品被锁定
+	 */
+	public static final int PRODUCT_FLOW = 4;
+	
+	/**
 	 * 用户下架
 	 */
 	public static final int PRODUCT_SOLD_OUT = 4;

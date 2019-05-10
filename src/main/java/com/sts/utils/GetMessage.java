@@ -29,7 +29,7 @@ public class GetMessage {
         String ran = smsCode();
         String timestamp = getStamp();
         String sig  = getMD5(ACCOUNT_SID, AUTH_TOKEN, timestamp); 
-        String tamp = "【EGoBuy商城】您的验证码为"+ran+"，请于{2}分钟内正确输入，如非本人操作，请忽略此短信。";  
+        String tamp = "【商学院闲置交易】您的验证码为"+ran+"，请于{2}分钟内正确输入，如非本人操作，请忽略此短信。";  
         OutputStreamWriter out = null;
         BufferedReader br = null;
         StringBuilder sb = new StringBuilder();

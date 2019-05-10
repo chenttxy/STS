@@ -3,6 +3,7 @@ package com.sts.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
@@ -35,8 +36,9 @@ public class TimedTask {
 	@Autowired
 	OrderService orderService;
 	
-	@Scheduled(cron = "0/60 * * * * ?")  //每隔60秒执行一次定时任务
-    public synchronized void createPreorder(){
+	@Scheduled(cron = "0 0/1 * * * ?")  //每隔一分钟执行一次定时任务
+	@Async
+	public void createPreorder(){
 		List<Product> productList = productSevice.queryListByEndTime();
 		Integer n = orderService.createPreorder(productList);
 		System.out.println("执行结果==========="+n);

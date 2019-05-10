@@ -101,23 +101,32 @@ public class OrderServiceImpl implements OrderService {
 			//得到超出拍卖截止时间的商品
 			for (Product product : productList) {
 				
-				//更改商品状态为已卖出
 				Product p = new Product();
 				p.setGoodId(product.getGoodId());
-				p.setGoodStatus(Constants.PRODUCT_SELLED);
-				productMapper.updateGoodStatus(p);
 				
-				//生成拍卖成交订单
 				int goodId = product.getGoodId();
 				Preorder preorder = preorderMapper.queryMaxMoney(goodId);
-				Orders order = new Orders();
-				order.setGoodId(goodId);
-				order.setOrderId(CommonUtils.uuid());
-				order.setOrderPrice(preorder.getMoney());
-				order.setOrderStatus(Constants.ORDER_ADD);
-				order.setSellerId(product.getUserId());
-				order.setUserId(preorder.getUserId());
-				n += ordersMapper.createOrder(order);
+				//判断拍卖信息是否为空，为空则修改商品状态为流拍
+				if(preorder != null && !"".equals(preorder)){
+					
+					//更改商品状态为已卖出
+					p.setGoodStatus(Constants.PRODUCT_SELLED);
+					productMapper.updateGoodStatus(p);
+					
+					//生成拍卖成交订单
+					Orders order = new Orders();
+					order.setGoodId(goodId);
+					order.setOrderId(CommonUtils.uuid());
+					order.setOrderPrice(preorder.getMoney());
+					order.setOrderStatus(Constants.ORDER_ADD);
+					order.setSellerId(product.getUserId());
+					order.setUserId(preorder.getUserId());
+					n += ordersMapper.createOrder(order);
+				}else {
+					//当拍卖记录表中没有相关信息时，更改商品状态为流拍
+					p.setGoodStatus(Constants.PRODUCT_FLOW);
+					productMapper.updateGoodStatus(p);
+				}
 			}
 		}
 		return n;

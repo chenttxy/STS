@@ -20,6 +20,7 @@ import com.sts.pojo.User;
 import com.sts.service.ProductService;
 import com.sts.service.ReporteService;
 import com.sts.service.UserService;
+import com.sts.utils.GetMessage;
 
 @Controller
 @RequestMapping(value="/user/")
@@ -80,8 +81,8 @@ public class UserController {
 	@RequestMapping(value="sendMsg")
 	public void sendMsg(String phoneNum, HttpServletRequest rq){
 		System.out.println(phoneNum);
-		/*String code = GetMessage.getCode(phoneNum);*/
-		rq.getSession().setAttribute("code", "111111");
+		String code = GetMessage.getCode(phoneNum);
+		rq.getSession().setAttribute("code", code);
 	}
 	
 	//对验证码进行验证
