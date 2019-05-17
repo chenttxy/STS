@@ -221,7 +221,7 @@ function sendMsg(){
             </form>
         </div>
         <div class="content-login-description">已经拥有账户？</div>
-        <div><a class="content-login-link" href="common_login.jsp">登录</a></div>
+        <div><a class="content-login-link" href="${path }/loginView.do">登录</a></div>
     </div>
 </body>
 </html>
